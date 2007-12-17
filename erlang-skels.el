@@ -84,9 +84,9 @@ be placed in the menu.")
 (defvar erlang-skel-mail-address
   (if (or (not user-mail-address) (string-match "(" user-mail-address))
       (concat (user-login-name) "@"
-	      (or (and (boundp 'mail-host-address)
-		       mail-host-address)
-		  (system-name)))
+              (or (and (boundp 'mail-host-address)
+                       mail-host-address)
+                  (system-name)))
     user-mail-address)
   "Mail address of the user.")
 
@@ -177,11 +177,11 @@ Please see the function `tempo-define-template'.")
   "*Function which returns date string.
 Look in the module `time-stamp' for a battery of functions.")
 
-(defvar erlang-skel-copyright-comment 
+(defvar erlang-skel-copyright-comment
   (if (boundp '*copyright-organization*)
-      '(& "%%% @copyright (C) " (format-time-string "%Y") ", " 
+      '(& "%%% @copyright (C) " (format-time-string "%Y") ", "
           *copyright-organization*  n)
-      '(& "%%% @copyright (C) " (format-time-string "%Y") ", " 
+      '(& "%%% @copyright (C) " (format-time-string "%Y") ", "
           (user-full-name)  n))
   "*The template for a copyright line in the header, normally empty.
 This variable should be bound to a `tempo' template, for example:
@@ -203,8 +203,8 @@ Please see the function `tempo-define-template'.")
       ;;                           erlang-skel-author)
       n
       (erlang-skel-include erlang-skel-compile
-			   ;;			   erlang-skel-export
-			   erlang-skel-vc))
+                           ;; erlang-skel-export
+                           erlang-skel-vc))
   "*The template of a small header without any comments.
 Please see the function `tempo-define-template'.")
 
@@ -213,7 +213,7 @@ Please see the function `tempo-define-template'.")
       "%%% @doc"  n
       "%%%" p n
       "%%% @end" n
-      (erlang-skel-include erlang-skel-copyright-comment) 
+      (erlang-skel-include erlang-skel-copyright-comment)
       (erlang-skel-include erlang-skel-created-comment) n
       (erlang-skel-include erlang-skel-small-header) n)
   "*The template of a normal header.
@@ -222,17 +222,17 @@ Please see the function `tempo-define-template'.")
 (defvar erlang-skel-large-header
   '(o (erlang-skel-separator)
       (erlang-skel-include erlang-skel-author-comment)
-      "%%% @doc" n 
+      "%%% @doc" n
       "%%%" p n
-      "%%% @end" n  
-      (erlang-skel-include erlang-skel-copyright-comment) 
+      "%%% @end" n
+      (erlang-skel-include erlang-skel-copyright-comment)
       (erlang-skel-include erlang-skel-created-comment)
-      (erlang-skel-separator) 
+      (erlang-skel-separator)
       (erlang-skel-include erlang-skel-small-header) )
   "*The template of a large header.
 Please see the function `tempo-define-template'.")
 
- 
+
  ;; Server templates.
 (defvar erlang-skel-small-server
   '((erlang-skel-include erlang-skel-large-header)
@@ -304,7 +304,7 @@ Please see the function `tempo-define-template'.")
     "-behaviour(supervisor)." n n
 
     "%% API" n
-    "-export([start_link/0])." n n 
+    "-export([start_link/0])." n n
 
     "%% Supervisor callbacks" n
     "-export([init/1])." n n
@@ -322,7 +322,7 @@ Please see the function `tempo-define-template'.")
     "%% @end" n
     (erlang-skel-separator 2)
     "start_link() ->" n>
-    "supervisor:start_link({local, ?SERVER}, ?MODULE, [])." n 
+    "supervisor:start_link({local, ?SERVER}, ?MODULE, [])." n
     n
     (erlang-skel-double-separator 2)
     "%% Supervisor callbacks" n
@@ -364,7 +364,7 @@ Please see the function `tempo-define-template'.")
     "-define(SERVER, ?MODULE)." n n
 
     "-record(state, {})." n n
-     
+
     (erlang-skel-double-separator 2)
     "%% API" n
     (erlang-skel-double-separator 2)
@@ -374,7 +374,7 @@ Please see the function `tempo-define-template'.")
     "%%" n
     "%% @spec start_link() -> {ok,Pid} | ignore | {error,Error}." n
     "%% @end" n
-    (erlang-skel-separator 2) 
+    (erlang-skel-separator 2)
     "start_link() ->" n>
     "supervisor_bridge:start_link({local, ?SERVER}, ?MODULE, [])." n
     n
@@ -402,7 +402,7 @@ Please see the function `tempo-define-template'.")
     "end." n
     n
     (erlang-skel-separator 2)
-    "%% @doc" n 
+    "%% @doc" n
     "%% This function is called by the supervisor_bridge when it is" n
     "%% about to terminate. It should be the opposite of Module:init/1 and stop" n
     "%% the subsystem and do any necessary cleaning up.The return value is ignored." n
@@ -446,7 +446,7 @@ Please see the function `tempo-define-template'.")
     "%%" n
     "%% @spec start_link() -> {ok,Pid} | ignore | {error,Error}." n
     "%% @end" n
-    (erlang-skel-separator 2) 
+    (erlang-skel-separator 2)
     "start_link() ->" n>
     "gen_server:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
@@ -457,7 +457,7 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator 2)
     "%% @doc" n
     "%% Initiates the server" n
-    "%%" n   
+    "%%" n
     "%% @spec init(Args) -> {ok, State} |" n
     "%%                     {ok, State, Timeout} |" n
     "%%                     ignore               |" n
@@ -475,8 +475,8 @@ Please see the function `tempo-define-template'.")
     "%%                                      {reply, Reply, State, Timeout} |" n
     "%%                                      {noreply, State} |" n
     "%%                                      {noreply, State, Timeout} |" n
-    "%%                                      {stop, Reason, Reply, State} |" n 
-    "%%                                      {stop, Reason, State}." n       
+    "%%                                      {stop, Reason, Reply, State} |" n
+    "%%                                      {stop, Reason, State}." n
     "%% @end" n
     (erlang-skel-separator 2)
     "handle_call(_Request, _From, State) ->" n>
@@ -484,7 +484,7 @@ Please see the function `tempo-define-template'.")
     "{reply, Reply, State}." n
     n
     (erlang-skel-separator 2)
-    "%% @doc" n 
+    "%% @doc" n
     "%% Handling cast messages" n
     "%%" n
     "%% @spec handle_cast(Msg, State) -> {noreply, State} |" n
@@ -560,7 +560,7 @@ Please see the function `tempo-define-template'.")
     "%%" n
     "%% @spec start_link() -> {ok,Pid} | {error,Error}." n
     "%% @end" n
-    (erlang-skel-separator 2) 
+    (erlang-skel-separator 2)
     "start_link() ->" n>
     "gen_event:start_link({local, ?SERVER})." n
     n
@@ -570,9 +570,9 @@ Please see the function `tempo-define-template'.")
     "%%" n
     "%% @spec add_handler() -> ok | {'EXIT',Reason} | term()." n
     "%% @end" n
-    (erlang-skel-separator 2) 
+    (erlang-skel-separator 2)
     "add_handler() ->" n>
-    "gen_event:add_handler(?SERVER, ?MODULE, [])." n 
+    "gen_event:add_handler(?SERVER, ?MODULE, [])." n
     n
     (erlang-skel-double-separator 2)
     "%% gen_event callbacks" n
@@ -678,16 +678,16 @@ Please see the function `tempo-define-template'.")
     "%% API" n
     (erlang-skel-double-separator 2)
     (erlang-skel-separator 2)
-    "%% @doc" n 
+    "%% @doc" n
     "%% Creates a gen_fsm process which calls Module:init/1 to" n
     "%% initialize. To ensure a synchronized start-up procedure, this function" n
     "%% does not return until Module:init/1 has returned." n
     "%%" n
     "%% @spec start_link() -> ok,Pid} | ignore | {error,Error}." n
     "%% @end" n
-    (erlang-skel-separator 2) 
+    (erlang-skel-separator 2)
     "start_link() ->" n>
-    "gen_fsm:start_link({local, ?SERVER}, ?MODULE, [], [])." n 
+    "gen_fsm:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
     (erlang-skel-double-separator 2)
     "%% gen_fsm callbacks" n
@@ -746,7 +746,7 @@ Please see the function `tempo-define-template'.")
     "{reply, Reply, state_name, State}." n
     n
     (erlang-skel-separator 2)
-    "%% @doc" n 
+    "%% @doc" n
     "%% Whenever a gen_fsm receives an event sent using" n
     "%% gen_fsm:send_all_state_event/2, this function is called to handle" n
     "%% the event." n
@@ -840,7 +840,7 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% @spec" n
     "%% @end" n
-    (erlang-skel-separator 2) 
+    (erlang-skel-separator 2)
     n
     (erlang-skel-double-separator 2)
     "%% Internal functions" n
@@ -923,7 +923,7 @@ Please see the function `tempo-define-template'.")
     "%%" n
     "%% @spec init_per_suite(Config) -> Config." n
     "%% @end" n
-    (erlang-skel-separator 2) 
+    (erlang-skel-separator 2)
     "init_per_suite(Config) ->" n >
     "Config." n n
 
@@ -1020,7 +1020,7 @@ Please see the function `tempo-define-template'.")
     "%%" n
     "%% @spec init_per_suite(Config) -> Config." n
     "%% @end" n
-    (erlang-skel-separator 2) 
+    (erlang-skel-separator 2)
     "init_per_suite(Config) ->" n >
     "Config." n n
 
@@ -1110,41 +1110,41 @@ package not be present, this function does nothing."
     (error t))
   (if (featurep 'tempo)
       (let ((skel erlang-skel)
-	    (menu '()))
-	(while skel
-	  (cond ((null (car skel))
-		 (setq menu (cons nil menu)))
-		(t
-		 (funcall (symbol-function 'tempo-define-template)
-			  (concat "erlang-" (nth 1 (car skel)))
-			  ;; The tempo template used contains an `include'
-			  ;; function call only, hence changes to the
-			  ;; variables describing the templates take effect
-			  ;; immdiately.
-			  (list (list 'erlang-skel-include (nth 2 (car skel))))
-			  (nth 1 (car skel)))
-		 (setq menu (cons (erlang-skel-make-menu-item
-				   (car skel)) menu))))
-	  (setq skel (cdr skel)))
-	(setq erlang-menu-skel-items
-	      (list nil (list "Skeletons" (nreverse menu))))
-	(setq erlang-menu-items
-	      (erlang-menu-add-above 'erlang-menu-skel-items
-				     'erlang-menu-version-items
-				     erlang-menu-items))
-	(erlang-menu-init))))
+            (menu '()))
+        (while skel
+          (cond ((null (car skel))
+                 (setq menu (cons nil menu)))
+                (t
+                 (funcall (symbol-function 'tempo-define-template)
+                          (concat "erlang-" (nth 1 (car skel)))
+                          ;; The tempo template used contains an `include'
+                          ;; function call only, hence changes to the
+                          ;; variables describing the templates take effect
+                          ;; immdiately.
+                          (list (list 'erlang-skel-include (nth 2 (car skel))))
+                          (nth 1 (car skel)))
+                 (setq menu (cons (erlang-skel-make-menu-item
+                                   (car skel)) menu))))
+          (setq skel (cdr skel)))
+        (setq erlang-menu-skel-items
+              (list nil (list "Skeletons" (nreverse menu))))
+        (setq erlang-menu-items
+              (erlang-menu-add-above 'erlang-menu-skel-items
+                                     'erlang-menu-version-items
+                                     erlang-menu-items))
+        (erlang-menu-init))))
 
 (defun erlang-skel-make-menu-item (skel)
   (let ((func (intern (concat "tempo-template-erlang-" (nth 1 skel)))))
     (cond ((null (nth 3 skel))
-	   (list (car skel) func))
-	  (t
-	   (list (car skel)
-		 (list 'lambda '()
-		       '(interactive)
-		       (list 'funcall
-			     (list 'quote (nth 3 skel))
-			     (list 'quote func))))))))
+           (list (car skel) func))
+          (t
+           (list (car skel)
+                 (list 'lambda '()
+                       '(interactive)
+                       (list 'funcall
+                             (list 'quote (nth 3 skel))
+                             (list 'quote func))))))))
 
 ;; Functions designed to be added to the skeleton menu.
 ;; (Not normally used)
@@ -1177,37 +1177,37 @@ Technically, this function returns the `tempo' attribute`(l ...)' which
 can contain other `tempo' attributes.  Please see the function
 `tempo-define-template' for a description of the `(l ...)' attribute."
   (let ((res '())
-	entry)
+        entry)
     (while args
       (setq entry (car args))
       (while entry
-	(setq res (cons (car entry) res))
-	(setq entry (cdr entry)))
+        (setq res (cons (car entry) res))
+        (setq entry (cdr entry)))
       (setq args (cdr args)))
     (cons 'l (nreverse res))))
 
 (defun erlang-skel-separator (&optional percent)
   "Return a comment separator."
   (let ((percent (or percent 3)))
-    (concat (make-string percent ?%) 
-	    (make-string (- 70 percent) ?-) 
-	    "\n")))
+    (concat (make-string percent ?%)
+            (make-string (- 70 percent) ?-)
+            "\n")))
 
 (defun erlang-skel-double-separator (&optional percent)
   "Return a comment separator."
   (let ((percent (or percent 3)))
-    (concat (make-string percent ?%) 
-	    (make-string (- 70 percent) ?=) 
-	    "\n")))
+    (concat (make-string percent ?%)
+            (make-string (- 70 percent) ?=)
+            "\n")))
 
 (defun erlang-skel-dd-mmm-yyyy ()
   "Return the current date as a string in \"DD Mon YYYY\" form.
 The first character of DD is space if the value is less than 10."
   (let ((date (current-time-string)))
     (format "%2d %s %s"
-	    (string-to-int (substring date 8 10))
-	    (substring date 4 7)
-	    (substring date -4))))
+            (string-to-int (substring date 8 10))
+            (substring date 4 7)
+            (substring date -4))))
 
 ;; Local variables:
 ;; coding: iso-8859-1
