@@ -60,7 +60,7 @@
 ;;
 
 (autoload 'erlang-mode "erlang" "Major mode for editing Erlang code." t)
-(autoload 'erlang-version "erlang" 
+(autoload 'erlang-version "erlang"
   "Return the current version of Erlang mode." t)
 (autoload 'erlang-shell "erlang" "Start a new Erlang shell." t)
 (autoload 'run-erlang "erlang" "Start a new Erlang shell." t)
@@ -68,7 +68,7 @@
 (autoload 'erlang-compile "erlang"
   "Compile Erlang module in current buffer." t)
 
-(autoload 'erlang-man-module "erlang" 
+(autoload 'erlang-man-module "erlang"
   "Find manual page for MODULE." t)
 (autoload 'erlang-man-function "erlang"
   "Find manual page for NAME, where NAME is module:function." t)
