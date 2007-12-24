@@ -22,6 +22,16 @@ provided that OTP is installed in the directory /usr/local/otp:
       (setq exec-path (cons "/usr/local/otp/bin" exec-path))
       (require 'erlang-start)
 
+For XEmacs, you use add-to-list to modify the load path:
+
+      (add-to-list 'load-path "<path-to-mode>/erlware-mode")
+
+If your XEmacs system already has the default erlang mode on
+the search path, you may need to put the erlware path at the
+front of the search path:
+
+      (push "<path-to-mode>/erlware-mode" load-path)
+
 
 For Windows users
 -----------------
@@ -42,7 +52,3 @@ Files\erl-<Ver>:
       (setq erlang-root-dir "C:/Program Files/erl<Ver>")
       (setq exec-path (cons "C:/Program Files/erl<Ver>/bin" exec-path))
       (require 'erlang-start)
-    
-
-
-
