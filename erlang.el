@@ -22,7 +22,7 @@
 ;; All Rights Reserved.
 
 ;; Lars Thorsén's modifications of 2000-06-07 included.
- 
+
 ;; The original version of this package was written by Robert Virding.
 ;;
 ;; Most skeletons have been written at Ericsson Telecom by
@@ -824,15 +824,15 @@ Lock syntax table.  The effect is that `apply' in the atom
 (or (fboundp 'unless)
     (defmacro unless (condition &rest body)
       "(unless CONDITION BODY...): If CONDITION is false, do BODY, else return nil."
-      (` (if (, condition) 
-	     nil 
+      (` (if (, condition)
+	     nil
 	   (,@ body)))))
 
 (or (fboundp 'when)
     (defmacro when (condition &rest body)
       "(when CONDITION BODY...): If CONDITION is true, do BODY, else return nil."
       (` (if (, condition)
-	     (progn (,@ body)) 
+	     (progn (,@ body))
 	   nil))))
 
 (or (fboundp 'char-before)
@@ -965,7 +965,7 @@ Other commands:
 	(modify-syntax-entry ?_ "_" table)
 	(modify-syntax-entry ?| "." table)
 	(modify-syntax-entry ?^ "'" table)
-	
+
 	;; Pseudo bit-syntax: Latin1 double angle quotes as parens.
 	;;(modify-syntax-entry ?\253 "(?\273" table)
 	;;(modify-syntax-entry ?\273 ")?\253" table)
@@ -1000,7 +1000,7 @@ Other commands:
     (define-key map "\M-\C-h"   'erlang-mark-function))
   (define-key map "\M-\t"     'erlang-complete-tag)
   (define-key map "\C-c\M-\t" 'tempo-complete-tag)
-  (define-key map "\M-+"      'erlang-find-next-tag)  
+  (define-key map "\M-+"      'erlang-find-next-tag)
   (define-key map "\C-c\M-a"  'erlang-beginning-of-clause)
   (define-key map "\C-c\M-b"  'tempo-backward-mark)
   (define-key map "\C-c\M-e"  'erlang-end-of-clause)
@@ -1437,7 +1437,7 @@ Example:
 
 \(setq erlang-menu-items
       (erlang-menu-add-below 'my-erlang-menu-items
-	 	             'erlang-menu-base-items
+		             'erlang-menu-base-items
                              erlang-menu-items))"
   (if (memq entry items)
       items				; Return the original menu.
@@ -1983,8 +1983,8 @@ Value is list (stack token-start token-type in-what)."
 	(stack (car state))
 	(token (point))
 	in-what)
-    (cond 
-     
+    (cond
+
      ;; Done: Return previous state.
      ((>= token to)
       (setq token (nth 1 state))
@@ -2017,7 +2017,7 @@ Value is list (stack token-start token-type in-what)."
 	    ;;	 (erlang-pop stack))
 	    ;;     (if (and stack (memq (car (car stack)) '(icr begin)))
 	    ;;   (erlang-pop stack))))
-	    )  
+	    )
       (cond ((looking-at "\\(if\\|case\\|receive\\|try\\)[^_a-zA-Z0-9]")
 	     ;; Must push a new icr (if/case/receive) layer.
 	     (erlang-push (list 'icr token (current-column)) stack))
@@ -2057,7 +2057,7 @@ Value is list (stack token-start token-type in-what)."
 	    ((looking-at "catch[^,\n\\of]*\n")
 	     (erlang-push (list 'icr token (current-column)) stack)
 	     (erlang-push (list '-> token (current-column)) stack))
-	    ;;((looking-at "^of$") 
+	    ;;((looking-at "^of$")
 	    ;; (erlang-push (list 'icr token (current-column)) stack)
 	     ;;(erlang-push (list '-> token (current-column)) stack))
 	    )
@@ -2079,49 +2079,49 @@ Value is list (stack token-start token-type in-what)."
      ;; literal $^ or part of string and $ outside of a string denotes
      ;; a character literal)
      ((= cs ?')
-      (cond 
+      (cond
        ((= (following-char) ?\") ;; $ or ^ was the last char in a string
 	(forward-char 1))
        (t
 	;; Maybe a character literal, quote the next char to avoid
 	;; situations as $" being seen as the begining of a string.
 	;; Note the quoting something in the middle of a string is harmless.
-	(quote (following-char)) 
+	(quote (following-char))
 	(forward-char 1))))
 
      ;; Symbol constituent or punctuation
-     
+
      ((memq cs '(?. ?_))
-      (cond 
-       
+      (cond
+
        ;; Clause end
        ((= (following-char) ?\;)
 	(if (and stack (eq (car (car stack)) '->))
 	    (erlang-pop stack))
 	(forward-char 1))
-       
+
        ;; Function end
        ((looking-at "\\.\\(\\s \\|\n\\|\\s<\\)")
 	(setq stack nil)
 	(forward-char 1))
-       
+
        ;; Function head
        ((looking-at "->\\|:-")
 	(save-excursion
 	  (back-to-indentation)
 	  (cond ((looking-at "after[^_a-zA-Z0-9]")
-		 (erlang-pop stack))))	
+		 (erlang-pop stack))))
 	(if (and stack (eq (car (car stack)) 'when))
 	    (erlang-pop stack))
 	(erlang-push (list '-> token (current-column)) stack)
 	(forward-char 2))
-       
+
        ;; List-comprehension divider
        ((looking-at "||")
 	(erlang-push (list '|| token (current-column)) stack)
 	(forward-char 2))
 
-       ;;((looking-at ",$") 
+       ;;((looking-at ",$")
 	;; Normal catch not try-catch have caused icr
 	;; and then incr and faked "->" should be removed
 ;;	(save-excursion
@@ -2134,44 +2134,44 @@ Value is list (stack token-start token-type in-what)."
        ;; Parameter separator
        ((looking-at ",")
 	(forward-char 1))
-       
+
        ;; Bit-syntax open paren
        ((looking-at "<<")
 	(erlang-push (list '\( token (current-column)) stack)
 	(forward-char 2))
-       
+
        ;; Bbit-syntax close paren
        ((looking-at ">>")
 	(while (memq (car (car stack)) '(|| ->))
 	  (erlang-pop stack))
 	(cond ((eq (car (car stack)) '\()
 	       (erlang-pop stack))
-	      ((memq (car (car stack)) '(icr begin)) 
+	      ((memq (car (car stack)) '(icr begin))
 	       (error "Missing `end'"))
 	      (t
 	       (error "Unbalanced parentheses")))
 	(forward-char 2))
-       
+
        ;; Macro
        ((= (following-char) ??)
-	;; Skip over the ? 
+	;; Skip over the ?
 	(forward-char 1)
 	)
-       
+
        ;; Other punctuation: Skip over it and any following punctuation
        ((= cs ?.)
 	;; Skip over all characters in the operand.
 	(skip-syntax-forward "."))
-       
+
        ;; Other char: Skip over it.
        (t
 	(forward-char 1))))
-     
+
      ;; Open parenthesis
      ((= cs ?\()
       (erlang-push (list '\( token (current-column)) stack)
       (forward-char 1))
-     
+
      ;; Close parenthesis
      ((= cs ?\))
       (while (memq (car (car stack)) '(|| ->))
@@ -2179,30 +2179,30 @@ Value is list (stack token-start token-type in-what)."
       (cond ((eq (car (car stack)) '\()
 	     (erlang-pop stack))
 	    ((eq (car (car stack)) 'icr)
-	     (erlang-pop stack)  
+	     (erlang-pop stack)
 	     ;; Normal catch not try-catch might have caused icr
 	     ;; and then incr should be removed and is not an error.
-	     (if (eq (car (car stack)) '\() 
-	     	 (erlang-pop stack) 
+	     (if (eq (car (car stack)) '\()
+		 (erlang-pop stack)
 	     (else
 	       (error "Missing `end'"))
 	     ))
-	    ((eq (car (car stack)) 'begin) 
-	     (error "Missing `end'") 
+	    ((eq (car (car stack)) 'begin)
+	     (error "Missing `end'")
 	     (t
 	      (error "Unbalanced parenthesis"))
 	     ))
       (forward-char 1))
-     
+
      ;; Character quote: Skip it and the quoted char.
      ((= cs ?/)
       (forward-char 2))
-     
+
      ;; Character escape: Skip it and the escape sequence.
      ((= cs ?\\)
       (forward-char 1)
       (skip-syntax-forward "w"))
-     
+
      ;; Everything else
      (t
       (forward-char 1)))
@@ -2910,7 +2910,7 @@ Normally used in conjunction with `erlang-beginning-of-clause', e.g.:
                 (if (not (eobp)) (forward-char 1))
 		(and (erlang-beginning-of-clause)
 		     (erlang-get-function-arrow)))"
-  (and 
+  (and
    (save-excursion
      (re-search-forward "[^-:]*-\\|:" (point-max) t)
      (erlang-buffer-substring (- (point) 1) (+ (point) 1)))))
@@ -3163,7 +3163,7 @@ non-whitespace characters following the point on the current line."
 
 (defun erlang-electric-lt (&optional arg)
   "Insert a less-than sign, and optionally mark it as an open paren."
-  
+
   (interactive "p")
 
   (self-insert-command arg)
@@ -3176,7 +3176,7 @@ non-whitespace characters following the point on the current line."
 		 (not (eq (get-text-property (point) 'category)
 			  'bitsyntax-open-inner)))
 	;; Then mark the two chars...
-	(put-text-property (point) (1+ (point)) 
+	(put-text-property (point) (1+ (point))
 			   'category 'bitsyntax-open-outer)
 	(forward-char 1)
 	(put-text-property (point) (1+ (point))
@@ -3196,11 +3196,11 @@ non-whitespace characters following the point on the current line."
 	 (and (eq (char-after (point)) ?>)
 	      (not (eq (get-text-property (point) 'category)
 		       'bitsyntax-close-outer))))))
-	 
+
 (defun erlang-after-arrow ()
   "Return true if point is immediately after a function arrow (`->')."
   (and (>= (point) 2)
-       (and 
+       (and
 	(save-excursion
 	  (backward-char)
 	  (eq (char-before (point)) ?-))
@@ -3214,7 +3214,7 @@ non-whitespace characters following the point on the current line."
 
 (defun erlang-electric-gt (&optional arg)
   "Insert a greater-than sign, and optionally mark it as a close paren."
-  
+
   (interactive "p")
 
   (self-insert-command arg)
@@ -3225,7 +3225,7 @@ non-whitespace characters following the point on the current line."
     (save-excursion
       ;; Then mark the two chars...
       (backward-char 2)
-      (put-text-property (point) (1+ (point)) 
+      (put-text-property (point) (1+ (point))
 			 'category 'bitsyntax-close-inner)
       (forward-char)
       (put-text-property (point) (1+ (point))
@@ -3250,7 +3250,7 @@ non-whitespace characters following the point on the current line."
    ;; Then it's just a plain greater-than.
    (t
     nil)))
-    
+
 
 (defun erlang-electric-arrow\ off (&optional arg)
   "Insert a '>'-sign and possibly a new indented line.
@@ -3408,7 +3408,7 @@ This function is designed to be a member of a criteria list."
 	    (if (and (car state) (eq (car (car (car state))) '||))
 		nil
 	      'stop)))
-      (error 
+      (error
        nil))))
 
 
