@@ -257,6 +257,7 @@ Please see the function `tempo-define-template'.")
     "%% Application callbacks" n
     (erlang-skel-double-separator 2)
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% This function is called whenever an application" n
     "%% is started using application:start/1,2, and should start the processes" n
@@ -278,6 +279,7 @@ Please see the function `tempo-define-template'.")
     "end." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc " n
     "%% This function is called whenever an application" n
     "%% has stopped. It is intended to be the opposite of Module:start/2 and" n
@@ -325,6 +327,7 @@ Please see the function `tempo-define-template'.")
     "%% Supervisor callbacks" n
     (erlang-skel-double-separator 2)
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Whenever a supervisor is started using" n
     "%% supervisor:start_link/[2,3], this function is called by the new process" n
@@ -379,6 +382,7 @@ Please see the function `tempo-define-template'.")
     "%% supervisor_bridge callbacks" n
     (erlang-skel-double-separator 2)
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Creates a supervisor_bridge process, linked to the calling" n
     "%% process, which calls Module:init/1 to start the subsystem. To ensure a" n
@@ -399,6 +403,7 @@ Please see the function `tempo-define-template'.")
     "end." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% This function is called by the supervisor_bridge when it is" n
     "%% about to terminate. It should be the opposite of Module:init/1 and stop" n
@@ -452,6 +457,7 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Initiates the server" n
     "%%" n
@@ -465,6 +471,7 @@ Please see the function `tempo-define-template'.")
     "{ok, #state{}}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Handling call messages" n
     "%%" n
@@ -481,6 +488,7 @@ Please see the function `tempo-define-template'.")
     "{reply, Reply, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Handling cast messages" n
     "%%" n
@@ -494,6 +502,7 @@ Please see the function `tempo-define-template'.")
     "{noreply, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Handling all non call/cast messages" n
     "%%" n
@@ -506,6 +515,7 @@ Please see the function `tempo-define-template'.")
     "{noreply, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% This function is called by a gen_server when it is about to" n
     "%% terminate. It should be the opposite of Module:init/1 and do any necessary" n
@@ -519,6 +529,7 @@ Please see the function `tempo-define-template'.")
     "ok." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Convert process state when code is changed" n
     "%%" n
@@ -575,6 +586,7 @@ Please see the function `tempo-define-template'.")
     "%% gen_event callbacks" n
     (erlang-skel-double-separator 2)
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Whenever a new event handler is added to an event manager," n
     "%% this function is called to initialize the event handler." n
@@ -586,6 +598,7 @@ Please see the function `tempo-define-template'.")
     "{ok, #state{}}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Whenever an event manager receives an event sent using" n
     "%% gen_event:notify/2 or gen_event:sync_notify/2, this function is called for" n
@@ -600,6 +613,7 @@ Please see the function `tempo-define-template'.")
     "{ok, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Whenever an event manager receives a request sent using" n
     "%% gen_event:call/3,4, this function is called for the specified event" n
@@ -616,6 +630,7 @@ Please see the function `tempo-define-template'.")
     "{ok, Reply, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% This function is called for each installed event handler when" n
     "%% an event manager receives any other message than an event or a synchronous" n
@@ -630,6 +645,7 @@ Please see the function `tempo-define-template'.")
     "{ok, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Whenever an event handler is deleted from an event manager," n
     "%% this function is called. It should be the opposite of Module:init/1 and" n
@@ -642,6 +658,7 @@ Please see the function `tempo-define-template'.")
     "ok." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Convert process state when code is changed" n
     "%%" n
@@ -690,6 +707,7 @@ Please see the function `tempo-define-template'.")
     "%% gen_fsm callbacks" n
     (erlang-skel-double-separator 2)
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Whenever a gen_fsm is started using gen_fsm:start/[3,4] or" n
     "%% gen_fsm:start_link/3,4, this function is called by the new process to " n
@@ -705,6 +723,7 @@ Please see the function `tempo-define-template'.")
     "{ok, state_name, #state{}}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% There should be one instance of this function for each possible" n
     "%% state name. Whenever a gen_fsm receives an event sent using" n
@@ -722,6 +741,7 @@ Please see the function `tempo-define-template'.")
     "{next_state, state_name, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%%  There should be one instance of this function for each" n
     "%%  possible state name. Whenever a gen_fsm receives an event sent using" n
@@ -743,6 +763,7 @@ Please see the function `tempo-define-template'.")
     "{reply, Reply, state_name, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Whenever a gen_fsm receives an event sent using" n
     "%% gen_fsm:send_all_state_event/2, this function is called to handle" n
@@ -759,6 +780,7 @@ Please see the function `tempo-define-template'.")
     "{next_state, StateName, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Whenever a gen_fsm receives an event sent using" n
     "%% gen_fsm:sync_send_all_state_event/2,3, this function is called to handle" n
@@ -780,6 +802,7 @@ Please see the function `tempo-define-template'.")
     "{reply, Reply, StateName, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% This function is called by a gen_fsm when it receives any" n
     "%% other message than a synchronous or asynchronous event" n
@@ -795,6 +818,7 @@ Please see the function `tempo-define-template'.")
     "{next_state, StateName, State}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% This function is called by a gen_fsm when it is about" n
     "%% to terminate. It should be the opposite of Module:init/1 and do any" n
@@ -808,6 +832,7 @@ Please see the function `tempo-define-template'.")
     "ok." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Convert process state when code is changed" n
     "%%" n
@@ -862,6 +887,7 @@ Please see the function `tempo-define-template'.")
     "%% Corba callbacks" n
     (erlang-skel-double-separator 2)
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Initiates the server" n
     "%%" n
@@ -875,6 +901,7 @@ Please see the function `tempo-define-template'.")
     "{ok, #state{}}." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Shutdown the server" n
     "%%" n
@@ -885,6 +912,7 @@ Please see the function `tempo-define-template'.")
     "ok." n
     n
     (erlang-skel-separator 2)
+    "%% @private" n
     "%% @doc" n
     "%% Convert process state when code is changed" n
     "%%" n
