@@ -210,10 +210,10 @@ Please see the function `tempo-define-template'.")
 
 (defvar erlang-skel-normal-header
   '(o (erlang-skel-include  erlang-skel-author-comment)
+      (erlang-skel-include erlang-skel-copyright-comment)
       "%%% @doc"  n
       "%%%" p n
       "%%% @end" n
-      (erlang-skel-include erlang-skel-copyright-comment)
       (erlang-skel-include erlang-skel-created-comment) n
       (erlang-skel-include erlang-skel-small-header) n)
   "*The template of a normal header.
@@ -222,10 +222,10 @@ Please see the function `tempo-define-template'.")
 (defvar erlang-skel-large-header
   '(o (erlang-skel-separator)
       (erlang-skel-include erlang-skel-author-comment)
+      (erlang-skel-include erlang-skel-copyright-comment)
       "%%% @doc" n
       "%%%" p n
       "%%% @end" n
-      (erlang-skel-include erlang-skel-copyright-comment)
       (erlang-skel-include erlang-skel-created-comment)
       (erlang-skel-separator)
       (erlang-skel-include erlang-skel-small-header) )
