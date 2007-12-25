@@ -200,11 +200,8 @@ Please see the function `tempo-define-template'.")
 
 (defvar erlang-skel-small-header
   '(o (erlang-skel-include erlang-skel-module)
-      ;;                           erlang-skel-author)
       n
-      (erlang-skel-include erlang-skel-compile
-                           ;; erlang-skel-export
-                           erlang-skel-vc))
+      (erlang-skel-include erlang-skel-compile erlang-skel-vc))
   "*The template of a small header without any comments.
 Please see the function `tempo-define-template'.")
 
