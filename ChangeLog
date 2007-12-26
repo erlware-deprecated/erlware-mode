@@ -1,0 +1,55 @@
+2007-12-25  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Add ChangeLog to comply with EPL.
+
+2007-12-25  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Remove '.' characters from ends of @spec lines.
+
+2007-12-25  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Add @private lines to generic callback function docs.
+
+2007-12-24  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Formatting cleanup.
+
+2007-12-24  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Move header @copyright edoc lines above @doc lines.
+
+2007-12-24  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Cleanup whitespace.
+
+2007-12-24  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Add XEmacs instructions for windows section.
+
+2007-12-24  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Cleanup whitespace in emacs code.
+
+2007-12-24  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Add instructions for XEmacs.
+
+2007-12-23  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Clean up whitespace in emacs code.
+
+2007-12-16  Dave Peticolas <dave.peticolas@gmail.com>
+
+	* Clean up whitespace in emacs code.
+
+2007-12-15  Dave Peticolas <cyberlync@cyberlync-laptop.(none)>
+
+	* Remove trailing whitespace from skeleton code.
+
+2007-12-14  Martin Logan <martinjlogan@Macintosh.local>
+
+	* @doc now sits below @spec
+
+2007-11-02  Eric Merritt <cyberlync@gmail.com>
+
+	* skeleton changes
