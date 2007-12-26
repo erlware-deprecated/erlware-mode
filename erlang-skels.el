@@ -266,8 +266,8 @@ Please see the function `tempo-define-template'.")
     "%% top supervisor of the tree." n
     "%%" n
     "%% @spec start(Type, StartArgs) -> {ok, Pid} |" n
-    "%%                                     {ok, Pid, State} |" n
-    "%%                                     {error, Reason}" n
+    "%%                                 {ok, Pid, State} |" n
+    "%%                                 {error, Reason}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "start(_Type, StartArgs) ->" n>
@@ -317,7 +317,7 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Starts the supervisor" n
     "%%" n
-    "%% @spec start_link() -> {ok,Pid} | ignore | {error,Error}" n
+    "%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "start_link() ->" n>
@@ -334,8 +334,8 @@ Please see the function `tempo-define-template'.")
     "%% to find out about restart strategy, maximum restart frequency and child" n
     "%% specifications." n
     "%%" n
-    "%% @spec init(Args) -> {ok,  {SupFlags,  [ChildSpec]}} |" n
-    "%%                     ignore                          |" n
+    "%% @spec init(Args) -> {ok, {SupFlags, [ChildSpec]}} |" n
+    "%%                     ignore |" n
     "%%                     {error, Reason}" n
     "%% @end" n
     (erlang-skel-separator 2)
@@ -372,7 +372,7 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Starts the supervisor bridge" n
     "%%" n
-    "%% @spec start_link() -> {ok,Pid} | ignore | {error,Error}" n
+    "%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "start_link() ->" n>
@@ -389,8 +389,8 @@ Please see the function `tempo-define-template'.")
     "%% synchronized start-up procedure, this function does not return until" n
     "%% Module:init/1 has returned." n
     "%%" n
-    "%% @spec init(Args) -> {ok,  Pid, State} |" n
-    "%%                     ignore            |" n
+    "%% @spec init(Args) -> {ok, Pid, State} |" n
+    "%%                     ignore |" n
     "%%                     {error, Reason}" n
     "%% @end" n
     (erlang-skel-separator 2)
@@ -446,7 +446,7 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Starts the server" n
     "%%" n
-    "%% @spec start_link() -> {ok,Pid} | ignore | {error,Error}" n
+    "%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "start_link() ->" n>
@@ -463,7 +463,7 @@ Please see the function `tempo-define-template'.")
     "%%" n
     "%% @spec init(Args) -> {ok, State} |" n
     "%%                     {ok, State, Timeout} |" n
-    "%%                     ignore               |" n
+    "%%                     ignore |" n
     "%%                     {stop, Reason}" n
     "%% @end" n
     (erlang-skel-separator 2)
@@ -475,12 +475,13 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Handling call messages" n
     "%%" n
-    "%% @spec handle_call(Request, From, State) -> {reply, Reply, State} |" n
-    "%%                                      {reply, Reply, State, Timeout} |" n
-    "%%                                      {noreply, State} |" n
-    "%%                                      {noreply, State, Timeout} |" n
-    "%%                                      {stop, Reason, Reply, State} |" n
-    "%%                                      {stop, Reason, State}" n
+    "%% @spec handle_call(Request, From, State) ->" n
+    "%%                                   {reply, Reply, State} |" n
+    "%%                                   {reply, Reply, State, Timeout} |" n
+    "%%                                   {noreply, State} |" n
+    "%%                                   {noreply, State, Timeout} |" n
+    "%%                                   {stop, Reason, Reply, State} |" n
+    "%%                                   {stop, Reason, State}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "handle_call(_Request, _From, State) ->" n>
@@ -493,8 +494,8 @@ Please see the function `tempo-define-template'.")
     "%% Handling cast messages" n
     "%%" n
     "%% @spec handle_cast(Msg, State) -> {noreply, State} |" n
-    "%%                                      {noreply, State, Timeout} |" n
-    "%%                                      {stop, Reason, State}" n
+    "%%                                  {noreply, State, Timeout} |" n
+    "%%                                  {stop, Reason, State}" n
     "%% @end" n
 
     (erlang-skel-separator 2)
@@ -507,8 +508,8 @@ Please see the function `tempo-define-template'.")
     "%% Handling all non call/cast messages" n
     "%%" n
     "%% @spec handle_info(Info, State) -> {noreply, State} |" n
-    "%%                                       {noreply, State, Timeout} |" n
-    "%%                                       {stop, Reason, State}" n
+    "%%                                   {noreply, State, Timeout} |" n
+    "%%                                   {stop, Reason, State}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "handle_info(_Info, State) ->" n>
@@ -566,7 +567,7 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Creates an event manager." n
     "%%" n
-    "%% @spec start_link() -> {ok,Pid} | {error,Error}" n
+    "%% @spec start_link() -> {ok, Pid} | {error, Error}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "start_link() ->" n>
@@ -576,7 +577,7 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Adds an event handler" n
     "%%" n
-    "%% @spec add_handler() -> ok | {'EXIT',Reason} | term()" n
+    "%% @spec add_handler() -> ok | {'EXIT', Reason} | term()" n
     "%% @end" n
     (erlang-skel-separator 2)
     "add_handler() ->" n>
@@ -604,9 +605,10 @@ Please see the function `tempo-define-template'.")
     "%% gen_event:notify/2 or gen_event:sync_notify/2, this function is called for" n
     "%% each installed event handler to handle the event." n
     "%%" n
-    "%% @spec  handle_event(Event, State) -> {ok, State} |" n
-    "%%                               {swap_handler, Args1, State1, Mod2, Args2} |"n
-    "%%                               remove_handler" n
+    "%% @spec handle_event(Event, State) ->" n
+    "%%                          {ok, State} |" n
+    "%%                          {swap_handler, Args1, State1, Mod2, Args2} |"n
+    "%%                          remove_handler" n
     "%% @end" n
     (erlang-skel-separator 2)
     "handle_event(_Event, State) ->" n>
@@ -619,10 +621,10 @@ Please see the function `tempo-define-template'.")
     "%% gen_event:call/3,4, this function is called for the specified event" n
     "%% handler to handle the request." n
     "%%" n
-    "%% @spec handle_call(Request, State) -> {ok, Reply, State} |" n
-    "%%                                {swap_handler, Reply, Args1, State1," n
-    "%%                                  Mod2, Args2} |" n
-    "%%                                {remove_handler, Reply}" n
+    "%% @spec handle_call(Request, State) ->" n
+    "%%                   {ok, Reply, State} |" n
+    "%%                   {swap_handler, Reply, Args1, State1, Mod2, Args2} |" n
+    "%%                   {remove_handler, Reply}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "handle_call(_Request, State) ->" n>
@@ -636,9 +638,10 @@ Please see the function `tempo-define-template'.")
     "%% an event manager receives any other message than an event or a synchronous" n
     "%% request (or a system message)." n
     "%%" n
-    "%% @spec handle_info(Info, State) -> {ok, State} |" n
-    "%%                             {swap_handler, Args1, State1, Mod2, Args2} |" n
-    "%%                              remove_handler" n
+    "%% @spec handle_info(Info, State) ->" n
+    "%%                         {ok, State} |" n
+    "%%                         {swap_handler, Args1, State1, Mod2, Args2} |" n
+    "%%                         remove_handler" n
     "%% @end" n
     (erlang-skel-separator 2)
     "handle_info(_Info, State) ->" n>
@@ -697,7 +700,7 @@ Please see the function `tempo-define-template'.")
     "%% initialize. To ensure a synchronized start-up procedure, this function" n
     "%% does not return until Module:init/1 has returned." n
     "%%" n
-    "%% @spec start_link() -> ok,Pid} | ignore | {error,Error}" n
+    "%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "start_link() ->" n>
@@ -714,9 +717,9 @@ Please see the function `tempo-define-template'.")
     "%% initialize." n
     "%%" n
     "%% @spec init(Args) -> {ok, StateName, State} |" n
-    "%%                         {ok, StateName, State, Timeout} |" n
-    "%%                         ignore                              |" n
-    "%%                         {stop, StopReason}" n
+    "%%                     {ok, StateName, State, Timeout} |" n
+    "%%                     ignore |" n
+    "%%                     {stop, StopReason}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "init([]) ->" n>
@@ -731,10 +734,10 @@ Please see the function `tempo-define-template'.")
     "%% the current state name StateName is called to handle the event. It is also" n
     "%% called if a timeout occurs." n
     "%%" n
-    "%% @spec state_name(Event, State) -> {next_state, NextStateName, NextState}|" n
-    "%%                             {next_state, NextStateName," n
-    "%%                                NextState, Timeout} |" n
-    "%%                             {stop, Reason, NewState}" n
+    "%% @spec state_name(Event, State) ->" n
+    "%%                   {next_state, NextStateName, NextState}|" n
+    "%%                   {next_state, NextStateName, NextState, Timeout} |" n
+    "%%                   {stop, Reason, NewState}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "state_name(_Event, State) ->" n>
@@ -748,14 +751,13 @@ Please see the function `tempo-define-template'.")
     "%%  gen_fsm:sync_send_event/2,3, the instance of this function with the same" n
     "%%  name as the current state name StateName is called to handle the event." n
     "%%" n
-    "%% @spec state_name(Event, From, State) -> {next_state, NextStateName, NextState} |"n
-    "%%                                   {next_state, NextStateName," n
-    "%%                                     NextState, Timeout} |" n
-    "%%                                   {reply, Reply, NextStateName, NextState}|" n
-    "%%                                   {reply, Reply, NextStateName," n
-    "%%                                    NextState, Timeout} |" n
-    "%%                                   {stop, Reason, NewState}|" n
-    "%%                                   {stop, Reason, Reply, NewState}" n
+    "%% @spec state_name(Event, From, State) ->" n
+    "%%                   {next_state, NextStateName, NextState} |"n
+    "%%                   {next_state, NextStateName, NextState, Timeout} |" n
+    "%%                   {reply, Reply, NextStateName, NextState}|" n
+    "%%                   {reply, Reply, NextStateName, NextState, Timeout} |" n
+    "%%                   {stop, Reason, NewState} |" n
+    "%%                   {stop, Reason, Reply, NewState}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "state_name(_Event, _From, State) ->" n>
@@ -769,11 +771,10 @@ Please see the function `tempo-define-template'.")
     "%% gen_fsm:send_all_state_event/2, this function is called to handle" n
     "%% the event." n
     "%%" n
-    "%% @spec handle_event(Event, StateName, State) -> {next_state, NextStateName," n
-    "%%						  NextState} |" n
-    "%%                                          {next_state, NextStateName," n
-    "%%					          NextState, Timeout} |" n
-    "%%                                          {stop, Reason, NewState}" n
+    "%% @spec handle_event(Event, StateName, State) ->" n
+    "%%                   {next_state, NextStateName, NextState} |" n
+    "%%                   {next_state, NextStateName, NextState, Timeout} |" n
+    "%%                   {stop, Reason, NewState}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "handle_event(_Event, StateName, State) ->" n>
@@ -786,15 +787,13 @@ Please see the function `tempo-define-template'.")
     "%% gen_fsm:sync_send_all_state_event/2,3, this function is called to handle" n
     "%% the event." n
     "%%" n
-    "%% @spec handle_sync_event(Event, From, StateName," n
-    "%%                   State) -> {next_state, NextStateName, NextState} |" n
-    "%%                             {next_state, NextStateName, NextState," n
-    "%%                              Timeout} |" n
-    "%%                             {reply, Reply, NextStateName, NextState}|" n
-    "%%                             {reply, Reply, NextStateName, NextState," n
-    "%%                              Timeout} |" n
-    "%%                             {stop, Reason, NewState} |" n
-    "%%                             {stop, Reason, Reply, NewState}" n
+    "%% @spec handle_sync_event(Event, From, StateName, State) ->" n
+    "%%                   {next_state, NextStateName, NextState} |" n
+    "%%                   {next_state, NextStateName, NextState, Timeout} |" n
+    "%%                   {reply, Reply, NextStateName, NextState} |" n
+    "%%                   {reply, Reply, NextStateName, NextState, Timeout} |" n
+    "%%                   {stop, Reason, NewState} |" n
+    "%%                   {stop, Reason, Reply, NewState}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "handle_sync_event(Event, From, StateName, State) ->" n>
@@ -808,10 +807,10 @@ Please see the function `tempo-define-template'.")
     "%% other message than a synchronous or asynchronous event" n
     "%% (or a system message)." n
     "%%" n
-    "%% @spec handle_info(Info,StateName,State)-> {next_state, NextStateName, NextState}|" n
-    "%%                                     {next_state, NextStateName, NextState," n
-    "%%                                       Timeout} |" n
-    "%%                                     {stop, Reason, NewState}" n
+    "%% @spec handle_info(Info,StateName,State)->" n
+    "%%                   {next_state, NextStateName, NextState} |" n
+    "%%                   {next_state, NextStateName, NextState, Timeout} |" n
+    "%%                   {stop, Reason, NewState}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "handle_info(_Info, StateName, State) ->" n>
@@ -836,7 +835,8 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Convert process state when code is changed" n
     "%%" n
-    "%% @spec code_change(OldVsn, StateName, State, Extra) -> {ok, StateName, NewState}" n
+    "%% @spec code_change(OldVsn, StateName, State, Extra) ->" n
+    "%%                   {ok, StateName, NewState}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "code_change(_OldVsn, StateName, State, _Extra) ->" n>
@@ -892,9 +892,9 @@ Please see the function `tempo-define-template'.")
     "%% Initiates the server" n
     "%%" n
     "%% @spec init(Args) -> {ok, State} |" n
-    "%%                         {ok, State, Timeout} |" n
-    "%%                         ignore               |" n
-    "%%                         {stop, Reason}" n
+    "%%                     {ok, State, Timeout} |" n
+    "%%                     ignore |" n
+    "%%                     {stop, Reason}" n
     "%% @end" n
     (erlang-skel-separator 2)
     "init([]) ->" n>
