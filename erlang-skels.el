@@ -259,10 +259,10 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator 2)
     "%% @private" n
     "%% @doc" n
-    "%% This function is called whenever an application" n
-    "%% is started using application:start/1,2, and should start the processes" n
-    "%% of the application. If the application is structured according to the" n
-    "%% OTP design principles as a supervision tree, this means starting the" n
+    "%% This function is called whenever an application is started using" n
+    "%% application:start/[1,2], and should start the processes of the" n
+    "%% application. If the application is structured according to the OTP" n
+    "%% design principles as a supervision tree, this means starting the" n
     "%% top supervisor of the tree." n
     "%%" n
     "%% @spec start(Type, StartArgs) -> {ok, Pid} |" n
@@ -280,10 +280,10 @@ Please see the function `tempo-define-template'.")
     n
     (erlang-skel-separator 2)
     "%% @private" n
-    "%% @doc " n
-    "%% This function is called whenever an application" n
-    "%% has stopped. It is intended to be the opposite of Module:start/2 and" n
-    "%% should do any necessary cleaning up. The return value is ignored." n
+    "%% @doc" n
+    "%% This function is called whenever an application has stopped. It" n
+    "%% is intended to be the opposite of Module:start/2 and should do" n
+    "%% any necessary cleaning up. The return value is ignored." n
     "%%" n
     "%% @spec stop(State) -> void()" n
     "%% @end" n
@@ -329,9 +329,9 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator 2)
     "%% @private" n
     "%% @doc" n
-    "%% Whenever a supervisor is started using" n
-    "%% supervisor:start_link/[2,3], this function is called by the new process" n
-    "%% to find out about restart strategy, maximum restart frequency and child" n
+    "%% Whenever a supervisor is started using supervisor:start_link/[2,3]," n
+    "%% this function is called by the new process to find out about" n
+    "%% restart strategy, maximum restart frequency and child" n
     "%% specifications." n
     "%%" n
     "%% @spec init(Args) -> {ok, {SupFlags, [ChildSpec]}} |" n
@@ -340,9 +340,9 @@ Please see the function `tempo-define-template'.")
     "%% @end" n
     (erlang-skel-separator 2)
     "init([]) ->" n>
-    "AChild = {'AName',{'AModule',start_link,[]}," n>
-    "permanent,2000,worker,['AModule']}," n>
-    "{ok,{{one_for_all,0,1}, [AChild]}}." n
+    "AChild = {'AName', {'AModule', start_link, []}," n>
+    "permanent, 2000, worker, ['AModule']}," n>
+    "{ok, {{one_for_all, 0, 1}, [AChild]}}." n
     n
     (erlang-skel-double-separator 2)
     "%% Internal functions" n
@@ -384,10 +384,10 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator 2)
     "%% @private" n
     "%% @doc" n
-    "%% Creates a supervisor_bridge process, linked to the calling" n
-    "%% process, which calls Module:init/1 to start the subsystem. To ensure a" n
-    "%% synchronized start-up procedure, this function does not return until" n
-    "%% Module:init/1 has returned." n
+    "%% Creates a supervisor_bridge process, linked to the calling process," n
+    "%% which calls Module:init/1 to start the subsystem. To ensure a" n
+    "%% synchronized start-up procedure, this function does not return" n
+    "%% until Module:init/1 has returned." n
     "%%" n
     "%% @spec init(Args) -> {ok, Pid, State} |" n
     "%%                     ignore |" n
@@ -405,9 +405,10 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator 2)
     "%% @private" n
     "%% @doc" n
-    "%% This function is called by the supervisor_bridge when it is" n
-    "%% about to terminate. It should be the opposite of Module:init/1 and stop" n
-    "%% the subsystem and do any necessary cleaning up.The return value is ignored." n
+    "%% This function is called by the supervisor_bridge when it is about" n
+    "%% to terminate. It should be the opposite of Module:init/1 and stop" n
+    "%% the subsystem and do any necessary cleaning up.The return value is" n
+    "%% ignored." n
     "%%" n
     "%% @spec terminate(Reason, State) -> void()" n
     "%% @end" n
@@ -519,9 +520,9 @@ Please see the function `tempo-define-template'.")
     "%% @private" n
     "%% @doc" n
     "%% This function is called by a gen_server when it is about to" n
-    "%% terminate. It should be the opposite of Module:init/1 and do any necessary" n
-    "%% cleaning up. When it returns, the gen_server terminates with Reason." n
-    "%% The return value is ignored." n
+    "%% terminate. It should be the opposite of Module:init/1 and do any" n
+    "%% necessary cleaning up. When it returns, the gen_server terminates" n
+    "%% with Reason. The return value is ignored." n
     "%%" n
     "%% @spec terminate(Reason, State) -> void()" n
     "%% @end" n
@@ -565,7 +566,7 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     (erlang-skel-separator 2)
     "%% @doc" n
-    "%% Creates an event manager." n
+    "%% Creates an event manager" n
     "%%" n
     "%% @spec start_link() -> {ok, Pid} | {error, Error}" n
     "%% @end" n
@@ -602,8 +603,8 @@ Please see the function `tempo-define-template'.")
     "%% @private" n
     "%% @doc" n
     "%% Whenever an event manager receives an event sent using" n
-    "%% gen_event:notify/2 or gen_event:sync_notify/2, this function is called for" n
-    "%% each installed event handler to handle the event." n
+    "%% gen_event:notify/2 or gen_event:sync_notify/2, this function is" n
+    "%% called for each installed event handler to handle the event." n
     "%%" n
     "%% @spec handle_event(Event, State) ->" n
     "%%                          {ok, State} |" n
@@ -618,8 +619,8 @@ Please see the function `tempo-define-template'.")
     "%% @private" n
     "%% @doc" n
     "%% Whenever an event manager receives a request sent using" n
-    "%% gen_event:call/3,4, this function is called for the specified event" n
-    "%% handler to handle the request." n
+    "%% gen_event:call/3,4, this function is called for the specified" n
+    "%% event handler to handle the request." n
     "%%" n
     "%% @spec handle_call(Request, State) ->" n
     "%%                   {ok, Reply, State} |" n
@@ -635,8 +636,8 @@ Please see the function `tempo-define-template'.")
     "%% @private" n
     "%% @doc" n
     "%% This function is called for each installed event handler when" n
-    "%% an event manager receives any other message than an event or a synchronous" n
-    "%% request (or a system message)." n
+    "%% an event manager receives any other message than an event or a" n
+    "%% synchronous request (or a system message)." n
     "%%" n
     "%% @spec handle_info(Info, State) ->" n
     "%%                         {ok, State} |" n
@@ -650,8 +651,8 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator 2)
     "%% @private" n
     "%% @doc" n
-    "%% Whenever an event handler is deleted from an event manager," n
-    "%% this function is called. It should be the opposite of Module:init/1 and" n
+    "%% Whenever an event handler is deleted from an event manager, this" n
+    "%% function is called. It should be the opposite of Module:init/1 and" n
     "%% do any necessary cleaning up." n
     "%%" n
     "%% @spec terminate(Reason, State) -> void()" n
@@ -697,8 +698,8 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator 2)
     "%% @doc" n
     "%% Creates a gen_fsm process which calls Module:init/1 to" n
-    "%% initialize. To ensure a synchronized start-up procedure, this function" n
-    "%% does not return until Module:init/1 has returned." n
+    "%% initialize. To ensure a synchronized start-up procedure, this" n
+    "%% function does not return until Module:init/1 has returned." n
     "%%" n
     "%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}" n
     "%% @end" n
@@ -713,8 +714,8 @@ Please see the function `tempo-define-template'.")
     "%% @private" n
     "%% @doc" n
     "%% Whenever a gen_fsm is started using gen_fsm:start/[3,4] or" n
-    "%% gen_fsm:start_link/3,4, this function is called by the new process to " n
-    "%% initialize." n
+    "%% gen_fsm:start_link/[3,4], this function is called by the new" n
+    "%% process to initialize." n
     "%%" n
     "%% @spec init(Args) -> {ok, StateName, State} |" n
     "%%                     {ok, StateName, State, Timeout} |" n
@@ -730,12 +731,12 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% There should be one instance of this function for each possible" n
     "%% state name. Whenever a gen_fsm receives an event sent using" n
-    "%% gen_fsm:send_event/2, the instance of this function with the same name as" n
-    "%% the current state name StateName is called to handle the event. It is also" n
-    "%% called if a timeout occurs." n
+    "%% gen_fsm:send_event/2, the instance of this function with the same" n
+    "%% name as the current state name StateName is called to handle" n
+    "%% the event. It is also called if a timeout occurs." n
     "%%" n
     "%% @spec state_name(Event, State) ->" n
-    "%%                   {next_state, NextStateName, NextState}|" n
+    "%%                   {next_state, NextStateName, NextState} |" n
     "%%                   {next_state, NextStateName, NextState, Timeout} |" n
     "%%                   {stop, Reason, NewState}" n
     "%% @end" n
@@ -746,15 +747,16 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator 2)
     "%% @private" n
     "%% @doc" n
-    "%%  There should be one instance of this function for each" n
-    "%%  possible state name. Whenever a gen_fsm receives an event sent using" n
-    "%%  gen_fsm:sync_send_event/2,3, the instance of this function with the same" n
-    "%%  name as the current state name StateName is called to handle the event." n
+    "%% There should be one instance of this function for each possible" n
+    "%% state name. Whenever a gen_fsm receives an event sent using" n
+    "%% gen_fsm:sync_send_event/[2,3], the instance of this function with" n
+    "%% the same name as the current state name StateName is called to" n
+    "%% handle the event." n
     "%%" n
     "%% @spec state_name(Event, From, State) ->" n
     "%%                   {next_state, NextStateName, NextState} |"n
     "%%                   {next_state, NextStateName, NextState, Timeout} |" n
-    "%%                   {reply, Reply, NextStateName, NextState}|" n
+    "%%                   {reply, Reply, NextStateName, NextState} |" n
     "%%                   {reply, Reply, NextStateName, NextState, Timeout} |" n
     "%%                   {stop, Reason, NewState} |" n
     "%%                   {stop, Reason, Reply, NewState}" n
@@ -784,8 +786,8 @@ Please see the function `tempo-define-template'.")
     "%% @private" n
     "%% @doc" n
     "%% Whenever a gen_fsm receives an event sent using" n
-    "%% gen_fsm:sync_send_all_state_event/2,3, this function is called to handle" n
-    "%% the event." n
+    "%% gen_fsm:sync_send_all_state_event/[2,3], this function is called" n
+    "%% to handle the event." n
     "%%" n
     "%% @spec handle_sync_event(Event, From, StateName, State) ->" n
     "%%                   {next_state, NextStateName, NextState} |" n
@@ -804,7 +806,7 @@ Please see the function `tempo-define-template'.")
     "%% @private" n
     "%% @doc" n
     "%% This function is called by a gen_fsm when it receives any" n
-    "%% other message than a synchronous or asynchronous event" n
+    "%% message other than a synchronous or asynchronous event" n
     "%% (or a system message)." n
     "%%" n
     "%% @spec handle_info(Info,StateName,State)->" n
@@ -819,8 +821,8 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator 2)
     "%% @private" n
     "%% @doc" n
-    "%% This function is called by a gen_fsm when it is about" n
-    "%% to terminate. It should be the opposite of Module:init/1 and do any" n
+    "%% This function is called by a gen_fsm when it is about to" n
+    "%% terminate. It should be the opposite of Module:init/1 and do any" n
     "%% necessary cleaning up. When it returns, the gen_fsm terminates with" n
     "%% Reason. The return value is ignored." n
     "%%" n
@@ -941,6 +943,7 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
+    "%%" n
     "%% Initiation before the whole suite" n
     "%%" n
     "%% Note: This function is free to add any key/value pairs to the Config" n
@@ -956,6 +959,7 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
+    "%%" n
     "%% Cleanup after the whole suite" n
     "%%" n
     "%% @spec end_per_suite(Config) -> _" n
@@ -971,7 +975,7 @@ Please see the function `tempo-define-template'.")
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
     "%%" n
-    "%%  Initiation before each test case" n
+    "%% Initiation before each test case" n
     "%%" n
     "%% Note: This function is free to add any key/value pairs to the Config" n
     "%% variable, but should NOT alter/remove any existing entries." n
@@ -983,12 +987,13 @@ Please see the function `tempo-define-template'.")
     "Config." n n
 
     (erlang-skel-separator 2)
-    "%% @doc"
+    "%% @doc" n
     "%% Case - atom()" n
     "%%   Name of the test case that is about to be run." n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
-    "%%  Cleanup after each test case" n
+    "%%" n
+    "%% Cleanup after each test case" n
     "%%" n
     "%% @spec end_per_testcase(TestCase, Config) -> _" n
     "%% @end" n
@@ -1002,6 +1007,7 @@ Please see the function `tempo-define-template'.")
     "%% TestCases - [Case]" n
     "%% Case - atom()" n
     "%%   Name of a test case." n
+    "%%" n
     "%% Returns a list of all test cases in this test suite" n
     "%%" n
     "%% @spec all(Clause) -> TestCases" n
@@ -1038,7 +1044,8 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
-    "%%  Initiation before the whole suite" n
+    "%%" n
+    "%% Initiation before the whole suite" n
     "%%" n
     "%% Note: This function is free to add any key/value pairs to the Config" n
     "%% variable, but should NOT alter/remove any existing entries." n
@@ -1053,7 +1060,8 @@ Please see the function `tempo-define-template'.")
     "%% @doc" n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
-    "%%  Cleanup after the whole suite" n
+    "%%" n
+    "%% Cleanup after the whole suite" n
     "%%" n
     "%% @spec end_per_suite(Config) -> _" n
     "%% @end" n
@@ -1086,7 +1094,8 @@ Please see the function `tempo-define-template'.")
     "%%   Name of the test case that is about to be run." n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
-    "%%  Cleanup after each test case" n
+    "%%" n
+    "%% Cleanup after each test case" n
     "%%" n
     "%% @spec end_per_testcase(TestCase, Config) -> _" n
     "%% @end" n
@@ -1099,6 +1108,7 @@ Please see the function `tempo-define-template'.")
     "%% TestCases - [Case]" n
     "%% Case - atom()" n
     "%%   Name of a test case." n
+    "%%" n
     "%% Returns a list of all test cases in this test suite" n
     "%%" n
     "%% @spec all() -> TestCases" n
