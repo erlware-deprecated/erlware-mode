@@ -340,9 +340,15 @@ Please see the function `tempo-define-template'.")
     "%% @end" n
     (erlang-skel-separator 2)
     "init([]) ->" n>
+    "RestartStrategy    = one_for_one," n>
+    "MaxRestarts        = 1000," n>
+    "MaxTimeBetRestarts = 3600," n>
+    "" n>
+    "SupFlags = {RestartStrategy, MaxRestarts, MaxTimeBetRestarts}," n>
+    "" n>
     "AChild = {'AName', {'AModule', start_link, []}," n>
     "permanent, 2000, worker, ['AModule']}," n>
-    "{ok, {{one_for_all, 0, 1}, [AChild]}}." n
+    "{ok, {SupFlags, [AChild]}}." n
     n
     (erlang-skel-double-separator 2)
     "%% Internal functions" n
