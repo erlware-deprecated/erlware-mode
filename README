@@ -16,8 +16,7 @@ To set up the Erlang Emacs mode on UNIX systems, edit/create the file
 Below is a complete example of what should be added to a user's .emacs
 provided that OTP is installed in the directory /usr/local/otp:
         
-      (setq load-path (cons "<path-to-mode>/erlware-mode"
-      load-path))
+      (setq load-path (cons "<path-to-mode>/erlware-mode" load-path))
       (setq erlang-root-dir "/usr/local/otp")
       (setq exec-path (cons "/usr/local/otp/bin" exec-path))
       (require 'erlang-start)
@@ -47,8 +46,7 @@ Below is a complete example of what should be added to a user's .emacs
 provided that OTP is installed in the directory C:\Program
 Files\erl-<Ver>:
 
-      (setq load-path (cons  "<path-to-mode>/erlware-mode"
-      load-path))
+      (setq load-path (cons  "<path-to-mode>/erlware-mode" load-path))
       (setq erlang-root-dir "C:/Program Files/erl<Ver>")
       (setq exec-path (cons "C:/Program Files/erl<Ver>/bin" exec-path))
       (require 'erlang-start)
