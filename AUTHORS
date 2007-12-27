@@ -4,14 +4,19 @@ The Erlang emacs mode was written by Anders Lindgren.
 Contributors:
 Luke Gorrie 
 Dave Love
-Eric Merritt
-Martin Logan
 
 Maintainers:
 Sverker Wiberg
 Kent Boortz
 Björn Gustavsson
-Ingela Anderton Andin
 
 Currently maintained by:
+Ingela Anderton Andin
+
+
+The Erlware mode has contributions from:
+Eric Merritt
+Martin Logan
+
+The Erlware mode is currently maintained by:
 Dave Peticolas
