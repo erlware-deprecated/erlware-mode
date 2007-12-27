@@ -1,3 +1,15 @@
+2007-12-27  Dave Peticolas <dave@krondo.com>
+
+	* Update supervisor init method.
+
+2007-12-27  Dave Peticolas <dave@krondo.com>
+
+	* Whitespace cleanup.
+
+2007-12-26  Martin Logan <dave@krondo.com>
+
+	* updated the init method
+
 2007-12-25  Dave Peticolas <dave.peticolas@gmail.com>
 
 	* Reformat @doc sections to be consistent.
