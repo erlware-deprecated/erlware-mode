@@ -966,10 +966,6 @@ Other commands:
 	(modify-syntax-entry ?| "." table)
 	(modify-syntax-entry ?^ "'" table)
 
-	;; Pseudo bit-syntax: Latin1 double angle quotes as parens.
-	;;(modify-syntax-entry ?\253 "(?\273" table)
-	;;(modify-syntax-entry ?\273 ")?\253" table)
-
 	(setq erlang-mode-syntax-table table)))
 
   (set-syntax-table erlang-mode-syntax-table))
@@ -994,7 +990,6 @@ Other commands:
   (if (not (boundp 'delete-key-deletes-forward))
       (define-key map "\177" 'backward-delete-char-untabify)
     (define-key map [backspace] 'backward-delete-char-untabify))
-  ;;(unless (boundp 'fill-paragraph-function)
   (define-key map "\M-q"      'erlang-fill-paragraph)
   (unless (boundp 'beginning-of-defun-function)
     (define-key map "\M-\C-a"   'erlang-beginning-of-function)
@@ -1287,8 +1282,6 @@ Please see the variable `erlang-menu-base-items'."
   (cond (erlang-xemacs-p
 	 (let ((menu (erlang-menu-xemacs name items keymap)))
 	   ;; We add the menu to the global menubar.
-	   ;;(funcall (symbol-function 'set-buffer-menubar)
-	   ;;         (symbol-value 'current-menubar))
 	   (funcall (symbol-function 'add-submenu) nil menu)
 	   (setcdr erlang-xemacs-popup-menu (cdr menu))
 	   (if (and popup (boundp 'mode-popup-menu))
