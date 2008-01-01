@@ -1,4 +1,5 @@
-;; erlang.el --- Major modes for editing and running Erlang
+;; erlang-skels.el --- Erlang code skeletons
+
 ;; The contents of this file are subject to the Erlang Public License,
 ;; Version 1.1, (the "License"); you may not use this file except in
 ;; compliance with the License. You should have received a copy of the
@@ -12,7 +13,6 @@
 
 ;; The Initial Developer of the Original Code is Ericsson Utvecklings AB.
 ;; All Rights Reserved.
-
 
 
 (defvar erlang-skel
