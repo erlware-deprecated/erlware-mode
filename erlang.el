@@ -4126,10 +4126,6 @@ future, a new shell on an already running host will be started."
 (defvar erlang-shell-buffer-name "*erlang*"
   "The name of the Erlang link shell buffer.")
 
-;;(when (boundp 'same-window-buffer-names)
- ;; (unless (member "*Python*" same-window-buffer-names)
-   ;; (push "*Python*" same-window-buffer-names)))
-
 
 (defvar erlang-shell-mode-map nil
   "Keymap used by Erlang shells.")
