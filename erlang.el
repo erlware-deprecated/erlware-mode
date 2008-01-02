@@ -563,6 +563,10 @@ Never EVER set this variable!")
 ;; Tempo skeleton templates:
 (load "erlang-skels")
 
+;; Sinan commands:
+(load "erlang-sinan")
+
+
 ;; Font-lock variables
 
 (defvar erlang-font-lock-modern-p
