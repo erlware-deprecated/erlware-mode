@@ -10,14 +10,24 @@
 (require 'compile)
 
 
-(defun erlang-sinan-run-command (command)
+(defun erlang-sinan-run-command (&optional args)
   "Run sinan with the command given as an argument. Runs sinan
 in a separate process asynchronously with output going to the
 buffer `*sinan*'."
   (interactive)
   (save-some-buffers)
-  (compile-internal command "No more errors." "sinan"))
+  (let ((cmd (string-join " " (cons "sinan" args))))
+    (compile-internal cmd "No more errors." "sinan")))
 
 (defun erlang-sinan-build ()
   (interactive)
-  (erlang-sinan-run-command "sinan"))
+  (erlang-sinan-run-command))
+
+(defun string-join (joiner strings)
+  (string-join-accum joiner strings ""))
+
+(defun string-join-accum (joiner strings accum)
+  (cond ((not strings) accum)
+        ((not (cdr strings)) (concat accum (car strings)))
+        (t (string-join-accum joiner (cdr strings)
+                              (concat accum (car strings) joiner)))))
