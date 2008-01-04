@@ -23,6 +23,10 @@ buffer `*sinan*'."
   (interactive)
   (erlang-sinan-run-command))
 
+(defun erlang-sinan-clean ()
+  (interactive)
+  (erlang-sinan-run-command '("clean")))
+
 (defun string-join (joiner strings)
   (string-join-accum joiner strings ""))
 
