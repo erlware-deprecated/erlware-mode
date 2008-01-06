@@ -80,8 +80,8 @@
 (defconst erlang-version "2.5.2"
   "The version number of Erlang mode.")
 
-(defvar erlang-root-dir nil
-  "The directory where the Erlang system is installed.
+(defvar erlang-man-root-dir nil
+  "The directory where the Erlang manual pages are installed.
 The name should not contain the trailing slash.
 
 Should this variable be nil, no manual pages will show up in the
@@ -253,14 +253,12 @@ only should be performed once, and actions which should be performed
 before starting Erlang mode.  For example, a number of variables are
 used by Erlang mode before `erlang-mode-hook' is run.
 
-The following example sets the variable `erlang-root-dir' so that the
-manual pages can be retrieved (note that you must set the value of
-`erlang-root-dir' to match the location of Erlang on your system):
+The following example sets the variable `erlang-man-root-dir' so that
+the manual pages can be retrieved (note that you must set the value of
+`erlang-man-root-dir' to match the location of the Erlang man pages
+on your system):
 
-    (add-hook 'erlang-load-hook 'my-erlang-load-hook)
-
-    (defun my-erlang-load-hook ()
-       (setq erlang-root-dir \"/usr/local/erlang\"))")
+   (setq erlang-man-root-dir \"/usr/local/erlang\")")
 
 (defvar erlang-new-file-hook nil
   "Functions to run when a new Erlang source file is being edited.
@@ -472,7 +470,7 @@ there is no attempt to create the menu.")
 Each item in the list should be a list with three elements, the first
 the name of the menu, the second the directory, and the last a flag.
 Should the flag the nil, the directory is absolute, should it be non-nil
-the directory is relative to the variable `erlang-root-dir'.")
+the directory is relative to the variable `erlang-man-root-dir'.")
 
 (defvar erlang-man-max-menu-size 20
   "*The maximum number of menu items in one menu allowed.")
@@ -1511,9 +1509,9 @@ The format is described in the documentation of `erlang-man-dirs'."
 	dir)
     (while dir-list
       (setq dir (cond ((nth 2 (car dir-list))
-		       ;; Relative to `erlang-root-dir'.
-		       (and (stringp erlang-root-dir)
-			    (concat erlang-root-dir (nth 1 (car dir-list)))))
+		       ;; Relative to `erlang-man-root-dir'.
+		       (and (stringp erlang-man-root-dir)
+			    (concat erlang-man-root-dir (nth 1 (car dir-list)))))
 		      (t
 		       ;; Absolute
 		       (nth 1 (car dir-list)))))
@@ -1612,7 +1610,7 @@ This function is aware of imported functions."
     (while (and dir-list (null file))
       (setq file-list (erlang-man-get-files
 		       (if (nth 2 (car dir-list))
-			   (concat erlang-root-dir (nth 1 (car dir-list)))
+			   (concat erlang-man-root-dir (nth 1 (car dir-list)))
 			 (nth 1 (car dir-list)))))
       (while (and file-list (null file))
 	(if (string-match pat (car file-list))
@@ -1774,17 +1772,15 @@ to be used."
   (with-output-to-temp-buffer "*Erlang Man Error*"
     (princ "Normally, this menu should contain Erlang manual pages.
 
-In order to find the manual pages, the variable `erlang-root-dir'
+In order to find the manual pages, the variable `erlang-man-root-dir'
 should be bound to the name of the directory containing the Erlang
-installation.  The name should not include the final slash.
+man pages. The name should not include the final slash.
 
 Practically, you should add a line on the following form to
 your ~/.emacs, or ask your system administrator to add it to
 the site init file:
-    (setq erlang-root-dir \"/the/erlang/root/dir/goes/here\")
 
-For example:
-    (setq erlang-root-dir \"/usr/local/erlang\")
+   (setq erlang-man-root-dir \"/usr/local/erlang\")
 
 After installing the line, kill and restart Emacs, or restart Erlang
 mode with the command `M-x erlang-mode RET'.")))
