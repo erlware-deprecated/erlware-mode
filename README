@@ -8,10 +8,14 @@ Erlang/OTP application tools for more information.
 
 You can obtain a copy of the Erlang man pages here:
 
-    http://www.erlang.org/download/
+    http://www.erlang.org/download
 
 Note for the man page menus to be populated, the Erlang
 man pages must be in uncompressed form.
+
+Additional documenation for this mode can be found here:
+
+    http://erlware.org/tools/erlware-mode
 
 
 For UNIX users
