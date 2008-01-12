@@ -1,3 +1,43 @@
+2008-01-09  Dave Peticolas <dave@krondo.com>
+
+	* Add erlware.org to README.
+
+2008-01-05  Dave Peticolas <dave@krondo.com>
+
+	* Update README with erlare-man-root-dir change.
+
+2008-01-05  Dave Peticolas <dave@krondo.com>
+
+	* Rename erlang-root-dir to erlang-man-root-dir.
+
+2008-01-03  Dave Peticolas <dave@krondo.com>
+
+	* Add sinan clean function.
+
+2008-01-01  Dave Peticolas <dave@krondo.com>
+
+	* Start of sinan command support.
+
+2007-12-29  Dave Peticolas <dave@krondo.com>
+
+	* Obey user's delete-key-deletes-forward setting.
+
+2007-12-27  Dave Peticolas <dave@krondo.com>
+
+	* Update supervisor init method.
+
+2007-12-27  Dave Peticolas <dave@krondo.com>
+
+	* Distinguish between original mode and erlware mode.
+
+2007-12-27  Dave Peticolas <dave@krondo.com>
+
+	* Whitespace cleanup.
+
+2007-12-26  Martin Logan <dave@krondo.com>
+
+	* updated the init method
+
 2007-12-27  Dave Peticolas <dave@krondo.com>
 
 	* Update supervisor init method.
