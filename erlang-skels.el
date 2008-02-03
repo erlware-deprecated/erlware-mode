@@ -77,6 +77,13 @@ in this list.
 A list with zero elements means that the a horizontal line should
 be placed in the menu.")
 
+(defvar erlang-skel-use-separators t
+  "A boolean than determines whether the skeletons include horizontal
+separators.
+
+Should this variable be nil, the documentation for functions will not
+include separators of the form %%--...")
+
 ;; In XEmacs `user-mail-address' returns "x@y.z (Foo Bar)" ARGH!
 ;; What's wrong with that? RFC 822 says it's legal.   [sverkerw]
 ;; This needs to use the customized value.  If that's not sane, things like
@@ -124,11 +131,10 @@ Please see the function `tempo-define-template'.")
 
 
 (defvar erlang-skel-function
-  '((erlang-skel-separator 2)
+  '((erlang-skel-separator-start 2)
     "%% @doc" n
     "%% @spec" n
-    "%% @end" n
-    (erlang-skel-separator 2))
+    (erlang-skel-separator-end 2))
     "*The template of a function skeleton.
 Please see the function `tempo-define-template'.")
 
@@ -256,7 +262,7 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     "%% Application callbacks" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% This function is called whenever an application is started using" n
@@ -268,8 +274,7 @@ Please see the function `tempo-define-template'.")
     "%% @spec start(Type, StartArgs) -> {ok, Pid} |" n
     "%%                                 {ok, Pid, State} |" n
     "%%                                 {error, Reason}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "start(_Type, StartArgs) ->" n>
     "case 'TopSupervisor':start_link(StartArgs) of" n>
     "{ok, Pid} ->" n>
@@ -278,7 +283,7 @@ Please see the function `tempo-define-template'.")
     "Error" n>
     "end." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% This function is called whenever an application has stopped. It" n
@@ -286,8 +291,7 @@ Please see the function `tempo-define-template'.")
     "%% any necessary cleaning up. The return value is ignored." n
     "%%" n
     "%% @spec stop(State) -> void()" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "stop(_State) ->" n>
     "ok." n
     n
@@ -313,20 +317,19 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     "%% API functions" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the supervisor" n
     "%%" n
     "%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "start_link() ->" n>
     "supervisor:start_link({local, ?SERVER}, ?MODULE, [])." n
     n
     (erlang-skel-double-separator 2)
     "%% Supervisor callbacks" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Whenever a supervisor is started using supervisor:start_link/[2,3]," n
@@ -337,8 +340,7 @@ Please see the function `tempo-define-template'.")
     "%% @spec init(Args) -> {ok, {SupFlags, [ChildSpec]}} |" n
     "%%                     ignore |" n
     "%%                     {error, Reason}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init([]) ->" n>
     "RestartStrategy = one_for_one," n>
     "MaxRestarts = 1000," n>
@@ -379,20 +381,19 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     "%% API" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the supervisor bridge" n
     "%%" n
     "%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "start_link() ->" n>
     "supervisor_bridge:start_link({local, ?SERVER}, ?MODULE, [])." n
     n
     (erlang-skel-double-separator 2)
     "%% supervisor_bridge callbacks" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Creates a supervisor_bridge process, linked to the calling process," n
@@ -403,8 +404,7 @@ Please see the function `tempo-define-template'.")
     "%% @spec init(Args) -> {ok, Pid, State} |" n
     "%%                     ignore |" n
     "%%                     {error, Reason}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init([]) ->" n>
     "case 'AModule':start_link() of" n>
     "{ok, Pid} ->" n>
@@ -413,7 +413,7 @@ Please see the function `tempo-define-template'.")
     "Error" n>
     "end." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% This function is called by the supervisor_bridge when it is about" n
@@ -422,8 +422,7 @@ Please see the function `tempo-define-template'.")
     "%% ignored." n
     "%%" n
     "%% @spec terminate(Reason, State) -> void()" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "terminate(Reason, State) ->" n>
     "'AModule':stop()," n>
     "ok." n
@@ -454,13 +453,12 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     "%% API" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the server" n
     "%%" n
     "%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "start_link() ->" n>
     "gen_server:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
@@ -468,7 +466,7 @@ Please see the function `tempo-define-template'.")
     "%% gen_server callbacks" n
     (erlang-skel-double-separator 2)
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Initiates the server" n
@@ -477,12 +475,11 @@ Please see the function `tempo-define-template'.")
     "%%                     {ok, State, Timeout} |" n
     "%%                     ignore |" n
     "%%                     {stop, Reason}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init([]) ->" n>
     "{ok, #state{}}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Handling call messages" n
@@ -494,13 +491,12 @@ Please see the function `tempo-define-template'.")
     "%%                                   {noreply, State, Timeout} |" n
     "%%                                   {stop, Reason, Reply, State} |" n
     "%%                                   {stop, Reason, State}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "handle_call(_Request, _From, State) ->" n>
     "Reply = ok," n>
     "{reply, Reply, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Handling cast messages" n
@@ -508,13 +504,11 @@ Please see the function `tempo-define-template'.")
     "%% @spec handle_cast(Msg, State) -> {noreply, State} |" n
     "%%                                  {noreply, State, Timeout} |" n
     "%%                                  {stop, Reason, State}" n
-    "%% @end" n
-
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "handle_cast(_Msg, State) ->" n>
     "{noreply, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Handling all non call/cast messages" n
@@ -522,12 +516,11 @@ Please see the function `tempo-define-template'.")
     "%% @spec handle_info(Info, State) -> {noreply, State} |" n
     "%%                                   {noreply, State, Timeout} |" n
     "%%                                   {stop, Reason, State}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "handle_info(_Info, State) ->" n>
     "{noreply, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% This function is called by a gen_server when it is about to" n
@@ -536,19 +529,17 @@ Please see the function `tempo-define-template'.")
     "%% with Reason. The return value is ignored." n
     "%%" n
     "%% @spec terminate(Reason, State) -> void()" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "terminate(_Reason, _State) ->" n>
     "ok." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Convert process state when code is changed" n
     "%%" n
     "%% @spec code_change(OldVsn, State, Extra) -> {ok, NewState}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
@@ -575,42 +566,39 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     "%% gen_event callbacks" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Creates an event manager" n
     "%%" n
     "%% @spec start_link() -> {ok, Pid} | {error, Error}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "start_link() ->" n>
     "gen_event:start_link({local, ?SERVER})." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Adds an event handler" n
     "%%" n
     "%% @spec add_handler() -> ok | {'EXIT', Reason} | term()" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "add_handler() ->" n>
     "gen_event:add_handler(?SERVER, ?MODULE, [])." n
     n
     (erlang-skel-double-separator 2)
     "%% gen_event callbacks" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Whenever a new event handler is added to an event manager," n
     "%% this function is called to initialize the event handler." n
     "%%" n
     "%% @spec init(Args) -> {ok, State}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init([]) ->" n>
     "{ok, #state{}}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Whenever an event manager receives an event sent using" n
@@ -621,12 +609,11 @@ Please see the function `tempo-define-template'.")
     "%%                          {ok, State} |" n
     "%%                          {swap_handler, Args1, State1, Mod2, Args2} |"n
     "%%                          remove_handler" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "handle_event(_Event, State) ->" n>
     "{ok, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Whenever an event manager receives a request sent using" n
@@ -637,13 +624,12 @@ Please see the function `tempo-define-template'.")
     "%%                   {ok, Reply, State} |" n
     "%%                   {swap_handler, Reply, Args1, State1, Mod2, Args2} |" n
     "%%                   {remove_handler, Reply}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "handle_call(_Request, State) ->" n>
     "Reply = ok," n>
     "{ok, Reply, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% This function is called for each installed event handler when" n
@@ -654,12 +640,11 @@ Please see the function `tempo-define-template'.")
     "%%                         {ok, State} |" n
     "%%                         {swap_handler, Args1, State1, Mod2, Args2} |" n
     "%%                         remove_handler" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "handle_info(_Info, State) ->" n>
     "{ok, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Whenever an event handler is deleted from an event manager, this" n
@@ -667,19 +652,17 @@ Please see the function `tempo-define-template'.")
     "%% do any necessary cleaning up." n
     "%%" n
     "%% @spec terminate(Reason, State) -> void()" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "terminate(_Reason, _State) ->" n>
     "ok." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Convert process state when code is changed" n
     "%%" n
     "%% @spec code_change(OldVsn, State, Extra) -> {ok, NewState}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
@@ -706,22 +689,21 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     "%% API" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Creates a gen_fsm process which calls Module:init/1 to" n
     "%% initialize. To ensure a synchronized start-up procedure, this" n
     "%% function does not return until Module:init/1 has returned." n
     "%%" n
     "%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "start_link() ->" n>
     "gen_fsm:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
     (erlang-skel-double-separator 2)
     "%% gen_fsm callbacks" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Whenever a gen_fsm is started using gen_fsm:start/[3,4] or" n
@@ -732,12 +714,11 @@ Please see the function `tempo-define-template'.")
     "%%                     {ok, StateName, State, Timeout} |" n
     "%%                     ignore |" n
     "%%                     {stop, StopReason}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init([]) ->" n>
     "{ok, state_name, #state{}}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% There should be one instance of this function for each possible" n
@@ -750,12 +731,11 @@ Please see the function `tempo-define-template'.")
     "%%                   {next_state, NextStateName, NextState} |" n
     "%%                   {next_state, NextStateName, NextState, Timeout} |" n
     "%%                   {stop, Reason, NewState}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "state_name(_Event, State) ->" n>
     "{next_state, state_name, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% There should be one instance of this function for each possible" n
@@ -771,13 +751,12 @@ Please see the function `tempo-define-template'.")
     "%%                   {reply, Reply, NextStateName, NextState, Timeout} |" n
     "%%                   {stop, Reason, NewState} |" n
     "%%                   {stop, Reason, Reply, NewState}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "state_name(_Event, _From, State) ->" n>
     "Reply = ok," n>
     "{reply, Reply, state_name, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Whenever a gen_fsm receives an event sent using" n
@@ -788,12 +767,11 @@ Please see the function `tempo-define-template'.")
     "%%                   {next_state, NextStateName, NextState} |" n
     "%%                   {next_state, NextStateName, NextState, Timeout} |" n
     "%%                   {stop, Reason, NewState}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "handle_event(_Event, StateName, State) ->" n>
     "{next_state, StateName, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Whenever a gen_fsm receives an event sent using" n
@@ -807,13 +785,12 @@ Please see the function `tempo-define-template'.")
     "%%                   {reply, Reply, NextStateName, NextState, Timeout} |" n
     "%%                   {stop, Reason, NewState} |" n
     "%%                   {stop, Reason, Reply, NewState}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "handle_sync_event(Event, From, StateName, State) ->" n>
     "Reply = ok," n>
     "{reply, Reply, StateName, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% This function is called by a gen_fsm when it receives any" n
@@ -824,12 +801,11 @@ Please see the function `tempo-define-template'.")
     "%%                   {next_state, NextStateName, NextState} |" n
     "%%                   {next_state, NextStateName, NextState, Timeout} |" n
     "%%                   {stop, Reason, NewState}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "handle_info(_Info, StateName, State) ->" n>
     "{next_state, StateName, State}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% This function is called by a gen_fsm when it is about to" n
@@ -838,20 +814,18 @@ Please see the function `tempo-define-template'.")
     "%% Reason. The return value is ignored." n
     "%%" n
     "%% @spec terminate(Reason, StateName, State) -> void()" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "terminate(_Reason, _StateName, _State) ->" n>
     "ok." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Convert process state when code is changed" n
     "%%" n
     "%% @spec code_change(OldVsn, StateName, State, Extra) ->" n
     "%%                   {ok, StateName, NewState}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "code_change(_OldVsn, StateName, State, _Extra) ->" n>
     "{ok, StateName, State}." n
     n
@@ -871,11 +845,10 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     "%% API" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% @spec" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     n
     (erlang-skel-double-separator 2)
     "%% Internal functions" n
@@ -899,7 +872,7 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator 2)
     "%% Corba callbacks" n
     (erlang-skel-double-separator 2)
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Initiates the server" n
@@ -908,30 +881,27 @@ Please see the function `tempo-define-template'.")
     "%%                     {ok, State, Timeout} |" n
     "%%                     ignore |" n
     "%%                     {stop, Reason}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init([]) ->" n>
     "{ok, #state{}}." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Shutdown the server" n
     "%%" n
     "%% @spec terminate(Reason, State) -> void()" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "terminate(_Reason, _State) ->" n>
     "ok." n
     n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
     "%% Convert process state when code is changed" n
     "%%" n
     "%% @spec code_change(OldVsn, State, Extra) -> {ok, NewState}" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
@@ -950,7 +920,7 @@ Please see the function `tempo-define-template'.")
     "-include(\"test_server.hrl\")." n n
 
     "%% Test server callback functions" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
@@ -961,12 +931,11 @@ Please see the function `tempo-define-template'.")
     "%% variable, but should NOT alter/remove any existing entries." n
     "%%" n
     "%% @spec init_per_suite(Config) -> Config" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init_per_suite(Config) ->" n >
     "Config." n n
 
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
@@ -974,12 +943,11 @@ Please see the function `tempo-define-template'.")
     "%% Cleanup after the whole suite" n
     "%%" n
     "%% @spec end_per_suite(Config) -> _" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "end_per_suite(_Config) ->" n >
     "ok." n n
 
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Case - atom()" n
     "%%   Name of the test case that is about to be run." n
@@ -992,12 +960,11 @@ Please see the function `tempo-define-template'.")
     "%% variable, but should NOT alter/remove any existing entries." n
     "%%" n
     "%% @spec init_per_testcase(TestCase, Config) -> Config" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init_per_testcase(_TestCase, Config) ->" n >
     "Config." n n
 
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Case - atom()" n
     "%%   Name of the test case that is about to be run." n
@@ -1007,12 +974,11 @@ Please see the function `tempo-define-template'.")
     "%% Cleanup after each test case" n
     "%%" n
     "%% @spec end_per_testcase(TestCase, Config) -> _" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "end_per_testcase(_TestCase, _Config) ->" n >
     "ok."n n
 
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Clause - atom() - suite | doc" n
     "%% TestCases - [Case]" n
@@ -1022,15 +988,14 @@ Please see the function `tempo-define-template'.")
     "%% Returns a list of all test cases in this test suite" n
     "%%" n
     "%% @spec all(Clause) -> TestCases" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "all(doc) ->" n >
     "[\"Describe the main purpose of this suite\"];" n n
     "all(suite) ->" n >
     "[]." n n
 
     "%% Test cases starts here." n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "test_case(doc) ->" n >
     "[\"Describe the main purpose of test case\"];" n n
     "test_case(suite) ->" n >
@@ -1051,7 +1016,7 @@ Please see the function `tempo-define-template'.")
     "-include(\"ct.hrl\")." n n
 
     "%% Test server callback functions" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
@@ -1062,12 +1027,11 @@ Please see the function `tempo-define-template'.")
     "%% variable, but should NOT alter/remove any existing entries." n
     "%%" n
     "%% @spec init_per_suite(Config) -> Config" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init_per_suite(Config) ->" n >
     "Config." n n
 
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Config - [tuple()]" n
     "%%   A list of key/value pairs, holding the test case configuration." n
@@ -1075,12 +1039,11 @@ Please see the function `tempo-define-template'.")
     "%% Cleanup after the whole suite" n
     "%%" n
     "%% @spec end_per_suite(Config) -> _" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "end_per_suite(_Config) ->" n >
     "ok." n n
 
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Case - atom()" n
     "%%   Name of the test case that is about to be run." n
@@ -1094,12 +1057,11 @@ Please see the function `tempo-define-template'.")
     "%% Initiation before each test case" n
     "%%" n
     "%% @spec init_per_testcase(TestCase, Config) -> Config" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "init_per_testcase(_TestCase, Config) ->" n >
     "Config." n n
 
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Case - atom()" n
     "%%   Name of the test case that is about to be run." n
@@ -1109,12 +1071,11 @@ Please see the function `tempo-define-template'.")
     "%% Cleanup after each test case" n
     "%%" n
     "%% @spec end_per_testcase(TestCase, Config) -> _" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "end_per_testcase(_TestCase, _Config) ->" n >
     "ok."n n
 
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% TestCases - [Case]" n
     "%% Case - atom()" n
@@ -1123,13 +1084,12 @@ Please see the function `tempo-define-template'.")
     "%% Returns a list of all test cases in this test suite" n
     "%%" n
     "%% @spec all() -> TestCases" n
-    "%% @end" n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-end 2)
     "all() ->" n >
     "[]." n n
 
     "%% Test cases starts here." n
-    (erlang-skel-separator 2)
+    (erlang-skel-separator-start 2)
     "test_case() ->" n >
     "[{doc, \"Describe the main purpose of this test case\"}]." n n
     "test_case(Config) when is_list(Config) ->" n >
@@ -1238,6 +1198,19 @@ can contain other `tempo' attributes.  Please see the function
     (concat (make-string percent ?%)
             (make-string (- 70 percent) ?-)
             "\n")))
+
+(defun erlang-skel-separator-start (&optional percent)
+  "Return a comment separator or an empty string if they are configured off."
+  (if erlang-skel-use-separators
+      (erlang-skel-separator percent)
+    ""))
+
+(defun erlang-skel-separator-end (&optional percent)
+  "Return a comment separator to end a function comment block or an empty string
+if they are configured off."
+  (if erlang-skel-use-separators
+      (concat "%% @end\n" (erlang-skel-separator percent))
+    ""))
 
 (defun erlang-skel-double-separator (&optional percent)
   "Return a comment separator."
