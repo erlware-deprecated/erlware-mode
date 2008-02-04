@@ -261,7 +261,7 @@ Please see the function `tempo-define-template'.")
     "-export([start/2, stop/1])." n n
     (erlang-skel-double-separator 2)
     "%% Application callbacks" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -316,7 +316,7 @@ Please see the function `tempo-define-template'.")
 
     (erlang-skel-double-separator 2)
     "%% API functions" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the supervisor" n
@@ -328,7 +328,7 @@ Please see the function `tempo-define-template'.")
     n
     (erlang-skel-double-separator 2)
     "%% Supervisor callbacks" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -380,7 +380,7 @@ Please see the function `tempo-define-template'.")
 
     (erlang-skel-double-separator 2)
     "%% API" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the supervisor bridge" n
@@ -392,7 +392,7 @@ Please see the function `tempo-define-template'.")
     n
     (erlang-skel-double-separator 2)
     "%% supervisor_bridge callbacks" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -452,7 +452,7 @@ Please see the function `tempo-define-template'.")
 
     (erlang-skel-double-separator 2)
     "%% API" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the server" n
@@ -565,7 +565,7 @@ Please see the function `tempo-define-template'.")
 
     (erlang-skel-double-separator 2)
     "%% gen_event callbacks" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Creates an event manager" n
@@ -586,7 +586,7 @@ Please see the function `tempo-define-template'.")
     n
     (erlang-skel-double-separator 2)
     "%% gen_event callbacks" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -688,7 +688,7 @@ Please see the function `tempo-define-template'.")
 
     (erlang-skel-double-separator 2)
     "%% API" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Creates a gen_fsm process which calls Module:init/1 to" n
@@ -702,7 +702,7 @@ Please see the function `tempo-define-template'.")
     n
     (erlang-skel-double-separator 2)
     "%% gen_fsm callbacks" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -844,7 +844,7 @@ Please see the function `tempo-define-template'.")
 
     (erlang-skel-double-separator 2)
     "%% API" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% @spec" n
@@ -871,7 +871,7 @@ Please see the function `tempo-define-template'.")
 
     (erlang-skel-double-separator 2)
     "%% Corba callbacks" n
-    (erlang-skel-double-separator 2)
+    (erlang-skel-double-separator 2) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
