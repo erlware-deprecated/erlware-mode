@@ -3314,12 +3314,10 @@ the user pressed newline out of old habit, hence we will do nothing."
 	     (let ((str (buffer-substring
 			 (or (match-end 1) (match-beginning 0))
 			 (min (match-end 0) (point)))))
-	       (newline)
+	       (newline-and-indent)
 	       (undo-boundary)
 	       (insert str))
-	   (newline)
-	   (undo-boundary)
-	   (indent-according-to-mode)))))
+           (newline-and-indent)))))
 
 
 (defun erlang-test-criteria-list (criteria)
