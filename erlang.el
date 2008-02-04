@@ -275,6 +275,7 @@ prompted.  If the value is t the source is silently changed.")
 (defvar erlang-electric-commands
   '(erlang-electric-comma
     erlang-electric-semicolon
+    erlang-electric-newline
     erlang-electric-gt)
   "*List of activated electric commands.
 
