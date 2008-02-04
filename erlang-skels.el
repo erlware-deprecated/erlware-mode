@@ -259,9 +259,9 @@ Please see the function `tempo-define-template'.")
     "-behaviour(application)." n n
     "%% Application callbacks" n
     "-export([start/2, stop/1])." n n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Application callbacks" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -295,9 +295,9 @@ Please see the function `tempo-define-template'.")
     "stop(_State) ->" n>
     "ok." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Internal functions" n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-end 3)
     )
   "*The template of an application behaviour.
 Please see the function `tempo-define-template'.")
@@ -314,9 +314,9 @@ Please see the function `tempo-define-template'.")
 
     "-define(SERVER, ?MODULE)." n n
 
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% API functions" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the supervisor" n
@@ -326,9 +326,9 @@ Please see the function `tempo-define-template'.")
     "start_link() ->" n>
     "supervisor:start_link({local, ?SERVER}, ?MODULE, [])." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Supervisor callbacks" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -357,9 +357,9 @@ Please see the function `tempo-define-template'.")
     "" n>
     "{ok, {SupFlags, [AChild]}}." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Internal functions" n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-end 3)
     )
   "*The template of an supervisor behaviour.
 Please see the function `tempo-define-template'.")
@@ -378,9 +378,9 @@ Please see the function `tempo-define-template'.")
 
     "-record(state, {})." n n
 
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% API" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the supervisor bridge" n
@@ -390,9 +390,9 @@ Please see the function `tempo-define-template'.")
     "start_link() ->" n>
     "supervisor_bridge:start_link({local, ?SERVER}, ?MODULE, [])." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% supervisor_bridge callbacks" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -427,9 +427,9 @@ Please see the function `tempo-define-template'.")
     "'AModule':stop()," n>
     "ok." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Internal functions" n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-end 3)
     )
   "*The template of an supervisor_bridge behaviour.
 Please see the function `tempo-define-template'.")
@@ -450,9 +450,9 @@ Please see the function `tempo-define-template'.")
 
     "-record(state, {})." n n
 
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% API" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the server" n
@@ -462,9 +462,9 @@ Please see the function `tempo-define-template'.")
     "start_link() ->" n>
     "gen_server:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% gen_server callbacks" n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-end 3)
     n
     (erlang-skel-separator-start 2)
     "%% @private" n
@@ -543,9 +543,9 @@ Please see the function `tempo-define-template'.")
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Internal functions" n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-end 3)
     )
   "*The template of a generic server.
 Please see the function `tempo-define-template'.")
@@ -563,9 +563,9 @@ Please see the function `tempo-define-template'.")
 
     "-record(state, {})." n n
 
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% gen_event callbacks" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Creates an event manager" n
@@ -584,9 +584,9 @@ Please see the function `tempo-define-template'.")
     "add_handler() ->" n>
     "gen_event:add_handler(?SERVER, ?MODULE, [])." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% gen_event callbacks" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -666,9 +666,9 @@ Please see the function `tempo-define-template'.")
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Internal functions" n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-end 3)
     )
   "*The template of a gen_event.
 Please see the function `tempo-define-template'.")
@@ -686,9 +686,9 @@ Please see the function `tempo-define-template'.")
 
     "-record(state, {})." n n
 
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% API" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Creates a gen_fsm process which calls Module:init/1 to" n
@@ -700,9 +700,9 @@ Please see the function `tempo-define-template'.")
     "start_link() ->" n>
     "gen_fsm:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% gen_fsm callbacks" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -829,9 +829,9 @@ Please see the function `tempo-define-template'.")
     "code_change(_OldVsn, StateName, State, _Extra) ->" n>
     "{ok, StateName, State}." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Internal functions" n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-end 3)
     )
   "*The template of a gen_fsm.
 Please see the function `tempo-define-template'.")
@@ -842,17 +842,17 @@ Please see the function `tempo-define-template'.")
     "%% API" n
     "-export([])." n n
 
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% API" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% @spec" n
     (erlang-skel-separator-end 2)
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Internal functions" n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-end 3)
     )
   "*The template of a library module.
 Please see the function `tempo-define-template'.")
@@ -869,9 +869,9 @@ Please see the function `tempo-define-template'.")
 
     "-record(state, {})." n n
 
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Corba callbacks" n
-    (erlang-skel-double-separator 3) n
+    (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -905,9 +905,9 @@ Please see the function `tempo-define-template'.")
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-start 3)
     "%%% Internal functions" n
-    (erlang-skel-double-separator 3)
+    (erlang-skel-double-separator-end 3)
     )
   "*The template of a library module.
 Please see the function `tempo-define-template'.")
@@ -1200,24 +1200,38 @@ can contain other `tempo' attributes.  Please see the function
             "\n")))
 
 (defun erlang-skel-separator-start (&optional percent)
-  "Return a comment separator or an empty string if they are configured off."
+  "Return a comment separator or an empty string if separators
+are configured off."
   (if erlang-skel-use-separators
       (erlang-skel-separator percent)
     ""))
 
 (defun erlang-skel-separator-end (&optional percent)
-  "Return a comment separator to end a function comment block or an empty string
-if they are configured off."
+  "Return a comment separator to end a function comment block or an
+empty string if separators are configured off."
   (if erlang-skel-use-separators
       (concat "%% @end\n" (erlang-skel-separator percent))
     ""))
 
 (defun erlang-skel-double-separator (&optional percent)
-  "Return a comment separator."
+  "Return a double line (equals sign) comment separator."
   (let ((percent (or percent 3)))
     (concat (make-string percent ?%)
             (make-string (- 70 percent) ?=)
             "\n")))
+
+(defun erlang-skel-double-separator-start (&optional percent)
+  "Return a double separator or a newline if separators are configured off."
+  (if erlang-skel-use-separators
+      (erlang-skel-double-separator percent)
+    "\n"))
+
+(defun erlang-skel-double-separator-end (&optional percent)
+  "Return a double separator or an empty string if separators are
+configured off."
+  (if erlang-skel-use-separators
+      (erlang-skel-double-separator percent)
+    ""))
 
 (defun erlang-skel-dd-mmm-yyyy ()
   "Return the current date as a string in \"DD Mon YYYY\" form.
