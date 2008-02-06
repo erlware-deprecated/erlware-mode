@@ -1,3 +1,27 @@
+2008-02-03  Dave Peticolas <dave@krondo.com>
+
+	* Use newline-and-indent.
+
+2008-02-03  Dave Peticolas <dave@krondo.com>
+
+	* Turn on electric newline by default.
+
+2008-02-03  Dave Peticolas <dave@krondo.com>
+
+	* Apply separator config to section headers.
+
+2008-02-03  Dave Peticolas <dave@krondo.com>
+
+	* Consistently use 3 percent signs for section headers.
+
+2008-02-03  Dave Peticolas <dave@krondo.com>
+
+	* Consistent newline after section headers.
+
+2008-02-03  Dave Peticolas <dave@krondo.com>
+
+	* Configurable horizontal separators for function docs.
+
 2008-01-09  Dave Peticolas <dave@krondo.com>
 
 	* Add erlware.org to README.
