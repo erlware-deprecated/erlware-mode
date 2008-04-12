@@ -239,7 +239,7 @@ Please see the function `tempo-define-template'.")
  ;; Server templates.
 (defvar erlang-skel-small-server
   '((erlang-skel-include erlang-skel-large-header)
-    "-export([start/0,init/1])." n n n
+    "-export([start/0, init/1])." n n n
     "start() ->" n> "spawn(" (erlang-get-module-from-file-name)
     ", init, [self()])." n n
     "init(From) ->" n>
