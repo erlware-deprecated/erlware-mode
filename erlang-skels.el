@@ -271,12 +271,14 @@ Please see the function `tempo-define-template'.")
     "%% design principles as a supervision tree, this means starting the" n
     "%% top supervisor of the tree." n
     "%%" n
-    "%% @spec start(Type, StartArgs) -> {ok, Pid} |" n
-    "%%                                 {ok, Pid, State} |" n
-    "%%                                 {error, Reason}" n
+    "%% @spec start(StartType, StartArgs) -> {ok, Pid} |" n
+    "%%                                      {ok, Pid, State} |" n
+    "%%                                      {error, Reason}" n
+    "%%      StartType = normal | {takeover, Node} | {failover, Node}" n
+    "%%      StartArgs = term()" n
     (erlang-skel-separator-end 2)
-    "start(_Type, StartArgs) ->" n>
-    "case 'TopSupervisor':start_link(StartArgs) of" n>
+    "start(_StartType, _StartArgs) ->" n>
+    "case 'TopSupervisor':start_link() of" n>
     "{ok, Pid} ->" n>
     "{ok, Pid};" n>
     "Error ->" n>
