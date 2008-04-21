@@ -1,3 +1,15 @@
+2008-04-20  Dave Peticolas <dave@krondo.com>
+
+	* Use supervisor:start_link/0. Update docs.
+
+2008-04-12  Dave Peticolas <dave@krondo.com>
+
+	* Consistent spacing in export lines.
+
+2008-04-04  Dave Peticolas <dave@krondo.com>
+
+	* Remove unused files. The app-wizard is superseded by sinan.
+
 2008-02-03  Dave Peticolas <dave@krondo.com>
 
 	* Use newline-and-indent.
