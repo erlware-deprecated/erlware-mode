@@ -881,10 +881,9 @@ Emacs.  To indicate this, the mode line should contain the word
 The main feature of Erlang mode is indentation, press TAB and the
 current line will be indented correctly.
 
-Comments starting with only one `%' are indented to the column stored
-in the variable `comment-column'.  Comments starting with two `%':s
-are indented with the same indentation as code.  Comments starting
-with at least three `%':s are indented to the first column.
+Comments starting with one `%' are indented with the same indentation
+as code.  Comments starting with at least two `%':s are indented to
+the first column.
 
 However, Erlang mode contains much more, this is a list of the most
 useful commands:
@@ -1058,8 +1057,6 @@ Other commands:
   (setq comment-start "%")
   (make-local-variable 'comment-start-skip)
   (setq comment-start-skip "%+\\s *")
-  (make-local-variable 'comment-column)
-  (setq comment-column 48)
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'erlang-indent-command)
   (make-local-variable 'indent-region-function)
@@ -2406,15 +2403,11 @@ This assumes that the preceding expression is either simple
 
 Used both by `indent-for-comment' and the Erlang specific indentation
 commands."
-  (cond ((looking-at "%%%") 0)
-	((looking-at "%%")
+  (cond ((looking-at "%%") 0)
+	((looking-at "%")
 	 (or (erlang-calculate-indent)
-	     (current-indentation)))
-	(t
-	 (save-excursion
-	   (skip-chars-backward " \t")
-	   (max (if (bolp) 0 (1+ (current-column)))
-		comment-column)))))
+	     (current-indentation)))))
+
 
 ;;; Erlang movement commands
 
@@ -3314,7 +3307,7 @@ the user pressed newline out of old habit, hence we will do nothing."
 	     (let ((str (buffer-substring
 			 (or (match-end 1) (match-beginning 0))
 			 (min (match-end 0) (point)))))
-	       (newline-and-indent)
+	       (newline)
 	       (undo-boundary)
 	       (insert str))
            (newline-and-indent)))))
