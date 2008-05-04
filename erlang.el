@@ -342,6 +342,7 @@ The test is performed by the function `erlang-test-criteria-list'.")
     erlang-stop-when-at-guard
     erlang-next-lines-empty-p
     erlang-at-keyword-end-p
+    erlang-at-end-of-clause-p
     erlang-at-end-of-function-p)
   "*List of functions controlling `erlang-electric-comma'.
 The functions in this list are called, in order, whenever a comma
@@ -3372,6 +3373,15 @@ This function is designed to be a member of a criteria list."
   (eq (save-excursion (erlang-skip-blank) (point))
       (save-excursion
 	(erlang-beginning-of-function -1) (point))))
+
+
+(defun erlang-at-end-of-clause-p ()
+  "Test if point is at end of an Erlang clause.
+
+This function is designed to be a member of a criteria list."
+  (eq (save-excursion (erlang-skip-blank) (point))
+      (save-excursion
+	(erlang-beginning-of-clause -1) (point))))
 
 
 (defun erlang-stop-when-inside-argument-list ()
