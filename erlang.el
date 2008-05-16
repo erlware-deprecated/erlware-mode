@@ -952,7 +952,7 @@ Other commands:
 	(modify-syntax-entry ?\n ">" table)
 	(modify-syntax-entry ?\" "\"" table)
 	(modify-syntax-entry ?# "." table)
-	(modify-syntax-entry ?$ "'" table)
+        (modify-syntax-entry ?$ "/" table)
 	(modify-syntax-entry ?% "<" table)
 	(modify-syntax-entry ?& "." table)
 	(modify-syntax-entry ?\' "\"" table)
@@ -967,7 +967,6 @@ Other commands:
 	(modify-syntax-entry ?\\ "\\" table)
 	(modify-syntax-entry ?_ "_" table)
 	(modify-syntax-entry ?| "." table)
-	(modify-syntax-entry ?^ "'" table)
 
 	(setq erlang-mode-syntax-table table)))
 
@@ -2068,20 +2067,6 @@ Value is list (stack token-start token-type in-what)."
 	(error
 	 (setq in-what 'string)
 	 (goto-char to))))
-
-     ;; Expression prefix e.i. $ or ^ (Note ^ can be in the character
-     ;; literal $^ or part of string and $ outside of a string denotes
-     ;; a character literal)
-     ((= cs ?')
-      (cond
-       ((= (following-char) ?\") ;; $ or ^ was the last char in a string
-	(forward-char 1))
-       (t
-	;; Maybe a character literal, quote the next char to avoid
-	;; situations as $" being seen as the begining of a string.
-	;; Note the quoting something in the middle of a string is harmless.
-	(quote (following-char))
-	(forward-char 1))))
 
      ;; Symbol constituent or punctuation
 
