@@ -2002,14 +2002,6 @@ Value is list (stack token-start token-type in-what)."
 		 (erlang-pop stack))
 	       (if (and stack (memq (car (car stack)) '(icr begin)))
 		   (erlang-pop stack))))
-	    ;;((looking-at "^of$")
-	    ;; Must pop top icr layer, `of' in try/catch
-	    ;;will push a new layer next.
-	    ;; (progn
-	    ;; (while (and stack (eq (car (car stack)) '->))
-	    ;;	 (erlang-pop stack))
-	    ;;     (if (and stack (memq (car (car stack)) '(icr begin)))
-	    ;;   (erlang-pop stack))))
 	    )
       (cond ((looking-at "\\(if\\|case\\|receive\\|try\\)[^_a-zA-Z0-9]")
 	     ;; Must push a new icr (if/case/receive) layer.
@@ -2050,9 +2042,6 @@ Value is list (stack token-start token-type in-what)."
 	    ((looking-at "catch[^,\n\\of]*\n")
 	     (erlang-push (list 'icr token (current-column)) stack)
 	     (erlang-push (list '-> token (current-column)) stack))
-	    ;;((looking-at "^of$")
-	    ;; (erlang-push (list 'icr token (current-column)) stack)
-	     ;;(erlang-push (list '-> token (current-column)) stack))
 	    )
       (forward-sexp 1))
       ;; String: Try to skip over it. (Catch error if not complete.)
@@ -2099,16 +2088,6 @@ Value is list (stack token-start token-type in-what)."
        ((looking-at "||")
 	(erlang-push (list '|| token (current-column)) stack)
 	(forward-char 2))
-
-       ;;((looking-at ",$")
-	;; Normal catch not try-catch have caused icr
-	;; and then incr and faked "->" should be removed
-;;	(save-excursion
-	;;  (back-to-indentation)
-	 ;; (cond ((looking-at "catch[^_a-zA-Z0-9]")
-		;; (erlang-pop stack)
-		;; (erlang-pop stack))))
-	;;(forward-char 1))
 
        ;; Parameter separator
        ((looking-at ",")
