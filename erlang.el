@@ -601,11 +601,6 @@ font-lock code is not loaded.")
 	 1 'font-lock-string-face))
   "Font lock keyword highlighting numbers in ASCII form (e.g. $A).")
 
-(defvar erlang-font-lock-keywords-arrow
-  (list
-   (list "\\(->\\|:-\\)\\(\\s \\|$\\)" 2 'font-lock-function-name-face))
-  "Font lock keyword highlighting clause arrow.")
-
 (defvar erlang-font-lock-keywords-lc
   (list
    (list "\\(<-\\)\\(\\s \\|$\\)" 1 'font-lock-keyword-face)
@@ -725,7 +720,6 @@ to work properly.")
 (defvar erlang-font-lock-keywords-1
   (append erlang-font-lock-keywords-func
 	  erlang-font-lock-keywords-dollar
-	  erlang-font-lock-keywords-arrow
 	  erlang-font-lock-keywords-keywords)
   ;; DocStringOrig: erlang-font-lock-keywords
   "Font-lock keywords used by Erlang Mode.

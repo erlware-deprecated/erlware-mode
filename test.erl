@@ -23,7 +23,6 @@ func2() ->
     ok.
 
 func3() ->
-    % This is currently broken. If you edit the font lock
-    % mode to underline function names, there will be an
-    % underline character after the '->'.
+    % If you edit the font lock mode to underline function names,
+    % there should not be an underline character after the '->'.
     fun() -> ok end.
