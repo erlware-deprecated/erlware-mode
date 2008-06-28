@@ -2030,7 +2030,7 @@ Value is list (stack token-start token-type in-what)."
 	     ;; Probably in try-statment, fake "->" to get right
 	     ;; indentation in erlang-calculate-stack-indent. If it
 	     ;; was an ordinary catch without try, these entries will
-	     ;; be popped of the stack at a later ocaccion.
+	     ;; be popped of the stack at a later occasion.
 	     (erlang-push (list 'icr token (current-column)) stack)
 	     (erlang-push (list '-> token (current-column)) stack))
 	    ((looking-at "catch[^,\n\\of]*\n")
