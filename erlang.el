@@ -138,7 +138,6 @@ variable.")
     ("TAGS"
      (("Find Tag" find-tag)
       ("Find Next Tag" erlang-find-next-tag)
-					;("Find Regexp" find-tag-regexp)
       ("Complete Word" erlang-complete-tag)
       ("Tags Apropos" tags-apropos)
       ("Search Files" tags-search))))
@@ -2027,15 +2026,10 @@ Value is list (stack token-start token-type in-what)."
 	    ((looking-at "after[.]+->")
 	     (erlang-push (list 'icr token (current-column)) stack))
 	    ((looking-at "after[^_a-zA-Z0-9->]")
-	     ;; Probably in try-statment, fake "->" to get right
-	     ;; indentation in erlang-calculate-stack-indent. If it
-	     ;; was an ordinary catch without try, these entries will
-	     ;; be popped of the stack at a later occasion.
 	     (erlang-push (list 'icr token (current-column)) stack)
 	     (erlang-push (list '-> token (current-column)) stack))
 	    ((looking-at "catch[^,\n\\of]*\n")
-	     (erlang-push (list 'icr token (current-column)) stack)
-	     (erlang-push (list '-> token (current-column)) stack))
+	     (erlang-push (list 'icr token (current-column)) stack))
 	    )
       (forward-sexp 1))
       ;; String: Try to skip over it. (Catch error if not complete.)
