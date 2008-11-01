@@ -1,3 +1,11 @@
+2008-10-31  Dave Peticolas <dave@krondo.com>
+
+	* Remove cruft. Fix issue 24 (catch clause indentation).
+
+2008-10-31  Dave Peticolas <dave@krondo.com>
+
+	* Update tests.
+
 2008-05-17  Dave Peticolas <dave@krondo.com>
 
 	* Remove the arrow font lock function.
