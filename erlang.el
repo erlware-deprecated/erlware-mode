@@ -637,12 +637,11 @@ are highlighted by syntactic analysis.")
 (defvar erlang-font-lock-keywords-guards
   (list
    (list
-    (concat "\\<\\("
-	    "\\(is_\\)*\\(atom\\|boolean\\|function\\|binary\\|constant"
+    (concat "[^:]\\<\\("
+	    "\\(is_\\)?\\(atom\\|boolean\\|function\\|binary\\|constant"
 	    "\\|float\\|integer\\|list\\|number\\|p\\(id\\|ort\\)\\|"
 	    "re\\(ference\\|cord\\)\\|tuple"
 	    "\\)\\)\\s *(")
-
     1
     (if erlang-font-lock-modern-p
 	'font-lock-reference-face
@@ -653,7 +652,7 @@ are highlighted by syntactic analysis.")
   (list
    (list
     (concat
-     "\\<\\("
+     "[^:]\\<\\("
      "a\\(bs\\|live\\|pply\\|tom_to_list\\)\\|"
      "binary_to_\\(list\\|term\\)\\|"
      "concat_binary\\|d\\(ate\\|isconnect_node\\)\\|"
