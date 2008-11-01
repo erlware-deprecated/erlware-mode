@@ -30,7 +30,7 @@ func3() ->
 
 func4() ->
     try
-        module:function(monkey, horse)
+        module:somefun(monkey, horse)
     catch
         % both these clauses should maintain their indents after tab presses
         error:something ->
@@ -38,3 +38,20 @@ func4() ->
         error:function_clause ->
             error
     end.
+
+func5(X)
+  when is_atom(X) ->
+    % 'is_atom' should be highlighted as a guard above
+
+    % All functions below should be highlighted as functions, not
+    % as guards or bifs. So each entire function name should be
+    % highlighted in the same way.
+    f:is_atom(),
+    g:registered(),
+    h:my_registered(),
+
+    % This should be highlighted as a bif.
+    registered(),
+
+    % Should be highlighted as a function.
+    deregistered().
