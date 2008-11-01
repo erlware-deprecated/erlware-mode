@@ -9,7 +9,8 @@
 
 func1() ->
     % This line should stay here after a tab.
-    % <<Press Return at end of line to get another % line>>
+    % If the comment-multi-line variable is non-nil, then pressing
+    % Return at end of this line shouldto get another % line.
     ok.
 
 func2() ->
@@ -26,3 +27,14 @@ func3() ->
     % If you edit the font lock mode to underline function names,
     % there should not be an underline character after the '->'.
     fun() -> ok end.
+
+func4() ->
+    try
+        module:function(monkey, horse)
+    catch
+        % both these clauses should maintain their indents after tab presses
+        error:something ->
+            error;
+        error:function_clause ->
+            error
+    end.
