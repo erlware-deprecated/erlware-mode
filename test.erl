@@ -55,3 +55,10 @@ func5(X)
 
     % Should be highlighted as a function.
     deregistered().
+
+func6() ->
+    % anatom should be highlighted as an atom, not a string
+    "string$", anatom,
+    % this comment should be highlighted as a comment
+    % following should be highlighted as a string, should indent correctly on tab
+"some $ string".
