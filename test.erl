@@ -3,7 +3,7 @@
 %% use different corner cases to make sure the mode
 %% does the right thing.
 %% 
-%% <<Press Return at end of line to get another %% line>>
+%% <<If comment-multi-line is on, Press Return to get another %% line>>
 
 -module(test.erl).
 
