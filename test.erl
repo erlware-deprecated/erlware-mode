@@ -61,4 +61,4 @@ func6() ->
     "string$", anatom,
     % this comment should be highlighted as a comment
     % following should be highlighted as a string, should indent correctly on tab
-"some $ string".
+"some $a string".
