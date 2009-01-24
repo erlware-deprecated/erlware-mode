@@ -2031,18 +2031,19 @@ Value is list (stack token-start token-type in-what)."
 	     (erlang-push (list 'icr token (current-column)) stack))
 	    )
       (forward-sexp 1))
+
       ;; String: Try to skip over it. (Catch error if not complete.)
       ((= cs ?\")
        (condition-case nil
 	   (progn
-	    (forward-sexp 1)
-	    (if (> (point) to)
-		(progn
-		  (setq in-what 'string)
-		  (goto-char to))))
-	(error
-	 (setq in-what 'string)
-	 (goto-char to))))
+             (forward-sexp 1)
+             (if (> (point) to)
+                 (progn
+                   (setq in-what 'string)
+                   (goto-char to))))
+         (error
+          (setq in-what 'string)
+          (goto-char to))))
 
      ;; Symbol constituent or punctuation
 
