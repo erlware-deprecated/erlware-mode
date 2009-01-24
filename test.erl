@@ -20,6 +20,7 @@ func2() ->
     {3, $>},
     {4, $<},
     {5, $,},
+    {6, ${},
     [$% | ["should not be highlighted as a comment"]],
     ok.
 
