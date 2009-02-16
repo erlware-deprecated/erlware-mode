@@ -562,6 +562,12 @@ Never EVER set this variable!")
 (defconst inferior-erlang-use-cmm (boundp 'minor-mode-overriding-map-alist)
   "Non-nil means use `compilation-minor-mode' in Erlang shell.")
 
+;; Tempo skeleton templates:
+(load "erlang-skels")
+
+;; Sinan commands:
+(load "erlang-sinan")
+
 
 ;; Font-lock variables
 
@@ -949,7 +955,7 @@ Other commands:
   (setq mode-name "Erlang")
   (erlang-syntax-table-init)
   (erlang-keymap-init)
-  ;;(erlang-electric-init)
+  (erlang-electric-init)
   (erlang-menu-init)
   (erlang-mode-variables)
   (erlang-check-module-name-init)
@@ -957,7 +963,7 @@ Other commands:
   (erlang-man-init)
   (erlang-tags-init)
   (erlang-font-lock-init)
-  ;;(erlang-skel-init)
+  (erlang-skel-init)
   (run-hooks 'erlang-mode-hook)
   (if (zerop (buffer-size))
       (run-hooks 'erlang-new-file-hook)))
