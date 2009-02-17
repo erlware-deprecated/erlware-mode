@@ -562,6 +562,12 @@ Never EVER set this variable!")
 (defconst inferior-erlang-use-cmm (boundp 'minor-mode-overriding-map-alist)
   "Non-nil means use `compilation-minor-mode' in Erlang shell.")
 
+;; Tempo skeleton templates:
+(load "erlang-skels")
+
+;; Sinan commands:
+(load "erlang-sinan")
+
 
 ;; Font-lock variables
 
@@ -2057,10 +2063,11 @@ Value is list (stack token-start token-type in-what)."
              (erlang-push (list 'icr token (current-column)) stack))
             )
       (forward-sexp 1))
-      ;; String: Try to skip over it. (Catch error if not complete.)
-      ((= cs ?\")
-       (condition-case nil
-           (progn
+
+     ;; String: Try to skip over it. (Catch error if not complete.)
+     ((= cs ?\")
+      (condition-case nil
+          (progn
             (forward-sexp 1)
             (if (> (point) to)
                 (progn

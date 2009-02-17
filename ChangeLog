@@ -1,3 +1,7 @@
+2009-02-16  mats cronqvist <mats.cronqvist@gmail.com>
+
+	* fixed syntax hilite
+
 2008-12-11  Dave Peticolas <dave@krondo.com>
 
 	* Fix bif/guard highlighting (Issue 25).
