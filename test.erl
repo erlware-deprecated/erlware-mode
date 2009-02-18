@@ -15,11 +15,13 @@ func1() ->
 
 func2() ->
     % Pressing tabs on all lines should not change indents.
+    {0, $q},
     {1, $(},
     {2, $)},
     {3, $>},
     {4, $<},
     {5, $,},
+    {6, ${},
     [$% | ["should not be highlighted as a comment"]],
     ok.
 
@@ -55,3 +57,22 @@ func5(X)
 
     % Should be highlighted as a function.
     deregistered().
+
+-spec func6() -> any().
+func6() ->
+    '\'atom',
+    'atom\'',
+    'at\'om',
+    $a,
+    $A,
+    $1,
+    V(),
+    Mo:Vv(),
+    Mo:bla(),
+    ok.
+
+func7() ->
+    try foo()
+    after
+        bla()
+    end.
