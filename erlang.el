@@ -605,7 +605,7 @@ font-lock code is not loaded.")
 
 (defvar erlang-font-lock-keywords-ext-func-call
   (list
-   (list (concat "\\(" erlang-atom-regexp "\\s-*:"
+   (list (concat "\\<\\(" erlang-atom-regexp "\\s-*:"
                  "\\s-*" erlang-atom-regexp "\\)\\s-*(")
          1 'font-lock-type-face))
   "Font lock keyword highlighting an external function call.")
@@ -790,9 +790,9 @@ Example:
           erlang-font-lock-keywords-fn
           erlang-font-lock-keywords-plusplus
           erlang-font-lock-keywords-lc
+          erlang-font-lock-keywords-dollar
           erlang-font-lock-keywords-vars
           erlang-font-lock-keywords-atom
-          erlang-font-lock-keywords-dollar
           )
   ;; DocStringCopy: erlang-font-lock-keywords
   "Font-lock keywords used by Erlang Mode.
@@ -976,7 +976,7 @@ Other commands:
         (modify-syntax-entry ?\n ">" table)
         (modify-syntax-entry ?\" "\"" table)
         (modify-syntax-entry ?# "." table)
-        (modify-syntax-entry ?$ "w" table)
+        (modify-syntax-entry ?$ "\\" table)
         (modify-syntax-entry ?% "<" table)
         (modify-syntax-entry ?& "." table)
         (modify-syntax-entry ?\' "w" table)
