@@ -599,7 +599,7 @@ font-lock code is not loaded.")
 
 (defvar erlang-font-lock-keywords-func-call
   (list
-   (list (concat erlang-atom-regexp "\\s-*(")
+   (list (concat "\\<" erlang-atom-regexp "\\s-*(")
          1 'font-lock-type-face))
   "Font lock keyword highlighting an internal function call.")
 
@@ -736,7 +736,8 @@ to work properly.")
 
 (defvar erlang-font-lock-keywords-atom
   (list
-   (list erlang-atom-regexp 1 'font-lock-constant-face))
+   (list (concat "\\<" erlang-atom-regexp "\\>")
+         1 'font-lock-constant-face))
   "Font lock keyword highlighting Erlang atoms.")
 
 (defvar erlang-font-lock-keywords-1
@@ -975,7 +976,7 @@ Other commands:
         (modify-syntax-entry ?\n ">" table)
         (modify-syntax-entry ?\" "\"" table)
         (modify-syntax-entry ?# "." table)
-        (modify-syntax-entry ?$ "/" table)
+        (modify-syntax-entry ?$ "w" table)
         (modify-syntax-entry ?% "<" table)
         (modify-syntax-entry ?& "." table)
         (modify-syntax-entry ?\' "w" table)
