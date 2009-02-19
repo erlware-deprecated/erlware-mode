@@ -94,7 +94,7 @@ func8() ->
 "some $a string".
 
 func9(Term, [${|T]) ->
-    % above should be highlited correctly
+    % above should be highlighted correctly
     % all function body lines should not indent further on tab
     ok.
 
