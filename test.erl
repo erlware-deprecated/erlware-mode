@@ -5,7 +5,7 @@
 %% 
 %% <<If comment-multi-line is on, Press Return to get another %% line>>
 
--module(test.erl).
+-module(test).
 
 func1() ->
     % This line should stay here after a tab.
@@ -43,7 +43,7 @@ func4() ->
 
 func5(X)
   when is_atom(X) ->
-    % 'is_atom' should be highlighted as a guard above
+    % `is_atom' should be highlighted as a guard above
 
     % All functions below should be highlighted as functions, not
     % as guards or bifs. So each entire function name should be
@@ -72,6 +72,7 @@ func6() ->
     ok.
 
 func7() ->
+    % the `after' clause should maintain its indent after tab press
     try foo()
     after
         bla()
