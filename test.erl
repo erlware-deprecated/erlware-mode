@@ -95,6 +95,7 @@ func8() ->
 
 func9(Term, [${|T]) ->
     % above should be highlited correctly
+    % all function body lines should not indent further on tab
     ok.
 
 deregistered() ->
