@@ -69,10 +69,13 @@ func6() ->
     $A,
     $1,
     V = x,
+    % in line below, V should be highlited as a var
     V(),
     Mo = y,
     Vv = v,
+    % in line below, Mo and Vv should be highlited as vars
     Mo:Vv(),
+    % in line below, Mo as var, bla as func call
     Mo:bla(),
     ok.
 
