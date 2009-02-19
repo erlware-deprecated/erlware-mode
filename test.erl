@@ -90,5 +90,9 @@ func8() ->
     % following should be highlighted as a string, should indent on tab
 "some $a string".
 
+func9(Term, [${|T]) ->
+    % above should be highlited correctly
+    ok.
+
 deregistered() ->
     ok.
