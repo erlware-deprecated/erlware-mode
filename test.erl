@@ -68,16 +68,19 @@ func6() ->
     $a,
     $A,
     $1,
+    V = x,
     V(),
+    Mo = y,
+    Vv = v,
     Mo:Vv(),
     Mo:bla(),
     ok.
 
 func7() ->
     % should keep indentation on tab
-    try foo()
+    try func1()
     after
-        bla()
+        func2()
     end.
 
 func8() ->
@@ -86,3 +89,6 @@ func8() ->
     % this comment should be highlighted as a comment
     % following should be highlighted as a string, should indent on tab
 "some $a string".
+
+deregistered() ->
+    ok.
