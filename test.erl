@@ -15,6 +15,7 @@ func1() ->
 
 func2() ->
     % Pressing tabs on all lines should not change indents.
+    {0, $q},
     {1, $(},
     {2, $)},
     {3, $>},
@@ -57,7 +58,29 @@ func5(X)
     % Should be highlighted as a function.
     deregistered().
 
+-spec func6() -> any().
 func6() ->
+    % 3 lines below should be highlighted as atoms
+    '\'atom',
+    'atom\'',
+    'at\'om',
+    % 3 lines below should be highlighted as literals
+    $a,
+    $A,
+    $1,
+    V(),
+    Mo:Vv(),
+    Mo:bla(),
+    ok.
+
+func7() ->
+    % should keep indentation on tab
+    try foo()
+    after
+        bla()
+    end.
+
+func8() ->
     % anatom should be highlighted as an atom, not a string
     "string$", anatom,
     % this comment should be highlighted as a comment

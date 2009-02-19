@@ -3,7 +3,7 @@
 ;; Copyright (C) 1995-1998,2000  Ericsson Telecom AB
 ;; Copyright (C) 2004  Free Software Foundation, Inc.
 ;; Author:   Anders Lindgren
-;; Version:  2.5.2
+;; Version:  0.1.10
 ;; Keywords: erlang, languages, processes
 ;; Date:     2000-09-11
 
@@ -27,6 +27,12 @@
 ;;
 ;; Most skeletons have been written at Ericsson Telecom by
 ;; magnus@erix.ericsson.se and janne@erix.ericsson.se
+
+;; The Erlware version of the mode has updated skeletons, syntax
+;; highlighting fixes, and indentation fixes. The latest Erlware mode
+;; can be obtained here:
+;;
+;;   http://code.google.com/p/erlware-mode/downloads/list
 
 ;;; Commentary:
 
@@ -77,8 +83,8 @@
 
 ;; Variables:
 
-(defconst erlang-version "2.5.2"
-  "The version number of Erlang mode.")
+(defconst erlang-version "0.1.10"
+  "The version number of Erlware Erlang mode.")
 
 (defvar erlang-man-root-dir nil
   "The directory where the Erlang manual pages are installed.
@@ -605,7 +611,7 @@ font-lock code is not loaded.")
 
 (defvar erlang-font-lock-keywords-ext-func-call
   (list
-   (list (concat "\\(" erlang-atom-regexp "\\s-*:"
+   (list (concat "\\<\\(" erlang-atom-regexp "\\s-*:"
                  "\\s-*" erlang-atom-regexp "\\)\\s-*(")
          1 'font-lock-type-face))
   "Font lock keyword highlighting an external function call.")
@@ -790,9 +796,9 @@ Example:
           erlang-font-lock-keywords-fn
           erlang-font-lock-keywords-plusplus
           erlang-font-lock-keywords-lc
+          erlang-font-lock-keywords-dollar
           erlang-font-lock-keywords-vars
           erlang-font-lock-keywords-atom
-          erlang-font-lock-keywords-dollar
           )
   ;; DocStringCopy: erlang-font-lock-keywords
   "Font-lock keywords used by Erlang Mode.
@@ -886,8 +892,7 @@ Lock syntax table.  The effect is that `apply' in the atom
   "Return the current version of Erlang mode."
   (interactive)
   (if (interactive-p)
-      (message "Erlang mode version %s, written by Anders Lindgren"
-               erlang-version))
+      (message "Erlware Erlang mode version %s" erlang-version))
   erlang-version)
 
 
@@ -976,7 +981,7 @@ Other commands:
         (modify-syntax-entry ?\n ">" table)
         (modify-syntax-entry ?\" "\"" table)
         (modify-syntax-entry ?# "." table)
-        (modify-syntax-entry ?$ "w" table)
+        (modify-syntax-entry ?$ "\\" table)
         (modify-syntax-entry ?% "<" table)
         (modify-syntax-entry ?& "." table)
         (modify-syntax-entry ?\' "w" table)
