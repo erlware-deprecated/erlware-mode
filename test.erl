@@ -60,20 +60,43 @@ func5(X)
 
 -spec func6() -> any().
 func6() ->
+    % 3 lines below should be highlighted as atoms
     '\'atom',
     'atom\'',
     'at\'om',
+    % 3 lines below should be highlighted as literals
     $a,
     $A,
     $1,
+    V = x,
+    % in line below, V should be highlited as a var
     V(),
+    Mo = y,
+    Vv = v,
+    % in line below, Mo and Vv should be highlited as vars
     Mo:Vv(),
+    % in line below, Mo as var, bla as func call
     Mo:bla(),
     ok.
 
 func7() ->
-    % the `after' clause should maintain its indent after tab press
-    try foo()
+    % should keep indentation on tab
+    try func1()
     after
-        bla()
+        func2()
     end.
+
+func8() ->
+    % anatom should be highlighted as an atom, not a string
+    "string$", anatom,
+    % this comment should be highlighted as a comment
+    % following should be highlighted as a string, should indent on tab
+"some $a string".
+
+func9(Term, [${|T]) ->
+    % above should be highlighted correctly
+    % all function body lines should not indent further on tab
+    ok.
+
+deregistered() ->
+    ok.

@@ -972,7 +972,10 @@ Other commands:
   (erlang-skel-init)
   (run-hooks 'erlang-mode-hook)
   (if (zerop (buffer-size))
-      (run-hooks 'erlang-new-file-hook)))
+      (run-hooks 'erlang-new-file-hook))
+  ;; Doesn't exist in Emacs v21.4; required by Emacs v23.
+  (if (boundp 'after-change-major-mode-hook)
+      (run-hooks 'after-change-major-mode-hook)))
 
 
 (defun erlang-syntax-table-init ()
