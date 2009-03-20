@@ -489,13 +489,19 @@ The function is called with one argument, the name of the file
 containing the man page.  Use this variable when the default
 function, `erlang-man-display', does not work on your system.")
 
-(eval-and-compile
-(defconst erlang-atom-regexp 
-  "\\([a-z][A-Za-z0-9_]*\\|'\\(?:[^\\']?\\(?:\\\\'\\)?\\)*'\\)"
-;;  "\\([a-z][a-zA-Z0-9_]*\\|'[^\n']*'\\)"
-  "Regexp which should match an Erlang atom.
+(defconst erlang-atom-quoted-regexp 
+  "'\\(?:[^\\']?\\(?:\\\\'\\)?\\)*'"
+  "Regexp describing a single-quoted atom")
 
-The regexp must be surrounded with a pair of regexp parentheses."))
+(defconst erlang-atom-regular-regexp 
+  "\\(?:[a-z][A-Za-z0-9_]*\\)"
+   "Regexp describing a regular (non-quoted) atom")
+
+(eval-and-compile
+  (defconst erlang-atom-regexp 
+    (concat"\\(" erlang-atom-quoted-regexp "\\|" 
+           erlang-atom-regular-regexp "\\)")
+    "Regexp describing an Erlang atom."))
 
 (defconst erlang-atom-regexp-matches 1
   "Number of regexp parenthesis pairs in `erlang-atom-regexp'.
@@ -512,6 +518,33 @@ The regexp must be surrounded with a pair of regexp parentheses.")
 
 This is used to determine matches in complex regexps which contains
 `erlang-variable-regexp'.")
+
+(defconst erlang-bif-regexp
+  (concat 
+   "\\("
+   "a\\(bs\\|live\\|pply\\|tom_to_list\\)\\|"
+   "binary_to_\\(list\\|term\\)\\|"
+   "concat_binary\\|"
+   "d\\(ate\\|isconnect_node\\)\\|"
+   "e\\(lement\\|rase\\|xit\\)\\|"
+   "floa\\(t\\|t_to_list\\)\\|"
+   "g\\(arbage_collect\\|et\\(\\|_keys\\)\\|roup_leader\\)\\|"
+   "h\\(alt\\|d\\)\\|"
+   "i\\(nte\\(ger_to_list\\|rnal_bif\\)\\|s_alive\\)\\|"
+   "l\\(ength\\|i\\(nk\\|st_to_\\(atom\\|binary\\|float\\|integer"
+   "\\|pid\\|tuple\\)\\)\\)\\|"
+   "make_ref\\|no\\(de\\(\\|_\\(link\\|unlink\\)\\|s\\)\\|talive\\)\\|"
+   "open_port\\|"
+   "p\\(id_to_list\\|rocess\\(_\\(flag\\|info\\)\\|es\\)\\|ut\\)\\|"
+   "r\\(egister\\(\\|ed\\)\\|ound\\)\\|"
+   "s\\(e\\(lf\\|telement\\)\\|ize"
+   "\\|p\\(awn\\(\\|_link\\)\\|lit_binary\\)\\|tatistics\\)\\|"
+   "t\\(erm_to_binary\\|hrow\\|ime\\|l\\|r\\(ace\\|unc\\)\\|uple_to_list\\)\\|"
+   "un\\(link\\|"
+   "register\\)\\|"
+   "whereis"
+   "\\)")
+  "Regexp matching an Erlang built-in function (BIF).")
 
 (defvar erlang-defun-prompt-regexp (concat "^" erlang-atom-regexp "\\s *(")
   "Regexp which should match beginning of a clause.")
@@ -599,11 +632,11 @@ font-lock code is not loaded.")
 
 (defvar erlang-font-lock-keywords-func
   (list
-   (list (concat "^" erlang-atom-regexp "\\s *(")
+   (list (concat "^" erlang-atom-regexp "\\s-*(")
          1 'font-lock-function-name-face t))
   "Font lock keyword highlighting a function header.")
 
-(defvar erlang-font-lock-keywords-func-call
+(defvar erlang-font-lock-keywords-int-func-call
   (list
    (list (concat "\\<" erlang-atom-regexp "\\s-*(")
          1 'font-lock-type-face))
@@ -611,10 +644,27 @@ font-lock code is not loaded.")
 
 (defvar erlang-font-lock-keywords-ext-func-call
   (list
-   (list (concat "\\<\\(" erlang-atom-regexp "\\s-*:"
-                 "\\s-*" erlang-atom-regexp "\\)\\s-*(")
-         1 'font-lock-type-face))
+   (list (concat "\\<" erlang-atom-regexp "\\s-*:\\s-*"
+                 erlang-atom-regexp "\\s-*(")
+         1 'font-lock-type-face)
+   (list (concat "\\<" erlang-atom-regexp "\\s-*:\\s-*"
+                 erlang-atom-regexp "\\s-*(")
+         2 'font-lock-type-face))
   "Font lock keyword highlighting an external function call.")
+
+(defvar erlang-font-lock-keywords-ext-bif
+  (list
+   (list (concat "\\<\\(erlang\\)\\s-*:\\s-*\\<" erlang-bif-regexp "\\s-*(")
+         1 'font-lock-builtin-face)
+   (list (concat "\\<\\(erlang\\)\\s-*:\\s-*\\<" erlang-bif-regexp "\\s-*(")
+         2 'font-lock-builtin-face))
+  "Font lock keyword highlighting built in functions.")
+
+(defvar erlang-font-lock-keywords-int-bif
+  (list
+   (list (concat "\\<" erlang-bif-regexp "\\s-*(")
+         1 'font-lock-builtin-face))
+  "Font lock keyword highlighting built in functions.")
 
 (defvar erlang-font-lock-keywords-fn
   (list
@@ -678,35 +728,6 @@ are highlighted by syntactic analysis.")
       'font-lock-keyword-face)))
   "Font lock keyword highlighting guards.")
 
-(defvar erlang-font-lock-keywords-bifs
-  (list
-   (list
-    (concat
-     "[^:]\\<\\("
-     "a\\(bs\\|live\\|pply\\|tom_to_list\\)\\|"
-     "binary_to_\\(list\\|term\\)\\|"
-     "concat_binary\\|d\\(ate\\|isconnect_node\\)\\|"
-     "e\\(lement\\|rase\\|xit\\)\\|"
-     "floa\\(t\\|t_to_list\\)\\|"
-     "g\\(arbage_collect\\|et\\(\\|_keys\\)\\|roup_leader\\)\\|"
-     "h\\(alt\\|d\\)\\|"
-     "i\\(nte\\(ger_to_list\\|rnal_bif\\)\\|s_alive\\)\\|"
-     "l\\(ength\\|i\\(nk\\|st_to_\\(atom\\|binary\\|float\\|integer"
-     "\\|pid\\|tuple\\)\\)\\)\\|"
-     "make_ref\\|no\\(de\\(\\|_\\(link\\|unlink\\)\\|s\\)\\|talive\\)\\|"
-     "open_port\\|"
-     "p\\(id_to_list\\|rocess\\(_\\(flag\\|info\\)\\|es\\)\\|ut\\)\\|"
-     "r\\(egister\\(\\|ed\\)\\|ound\\)\\|"
-     "s\\(e\\(lf\\|telement\\)\\|ize\\|"
-     "p\\(awn\\(\\|_link\\)\\|lit_binary\\)\\|tatistics\\)\\|"
-     "t\\(erm_to_binary\\|hrow\\|ime\\|l\\|"
-     "r\\(ace\\|unc\\)\\|uple_to_list\\)\\|"
-     "un\\(link\\|register\\)\\|whereis"
-     "\\)\\s *(")
-    1
-    'font-lock-builtin-face))
-  "Font lock keyword highlighting built in functions.")
-
 (defvar erlang-font-lock-keywords-macros
   (list
    (list (concat "?\\s *\\(" erlang-atom-regexp
@@ -740,9 +761,15 @@ This must be placed in front of `erlang-font-lock-keywords-vars'.")
 Must be preceded by `erlang-font-lock-keywords-macros' and `-records'
 to work properly.")
 
-(defvar erlang-font-lock-keywords-atom
+(defvar erlang-font-lock-keywords-atom-regular
   (list
-   (list (concat "\\<" erlang-atom-regexp "\\>")
+   (list (concat "\\<\\(" erlang-atom-regular-regexp "\\)\\>")
+         1 'font-lock-constant-face))
+  "Font lock keyword highlighting Erlang atoms.")
+
+(defvar erlang-font-lock-keywords-atom-quoted
+  (list
+   (list (concat "\\<\\(" erlang-atom-quoted-regexp "\\)\\>")
          1 'font-lock-constant-face))
   "Font lock keyword highlighting Erlang atoms.")
 
@@ -764,13 +791,11 @@ variable must be set before Erlang mode is activated.
 Example:
     (setq font-lock-maximum-decoration 2)")
 
-
 (defvar erlang-font-lock-keywords-2
   (append erlang-font-lock-keywords-1
           erlang-font-lock-keywords-attr
           erlang-font-lock-keywords-quotes
-          erlang-font-lock-keywords-guards
-          erlang-font-lock-keywords-bifs)
+          erlang-font-lock-keywords-guards)
   ;; DocStringCopy: erlang-font-lock-keywords
   "Font-lock keywords used by Erlang Mode.
 
@@ -791,14 +816,17 @@ Example:
   (append erlang-font-lock-keywords-2
           erlang-font-lock-keywords-macros
           erlang-font-lock-keywords-records
+          erlang-font-lock-keywords-ext-bif
           erlang-font-lock-keywords-ext-func-call
-          erlang-font-lock-keywords-func-call
+          erlang-font-lock-keywords-int-bif
+          erlang-font-lock-keywords-int-func-call
           erlang-font-lock-keywords-fn
           erlang-font-lock-keywords-plusplus
           erlang-font-lock-keywords-lc
+          erlang-font-lock-keywords-atom-quoted
           erlang-font-lock-keywords-dollar
+          erlang-font-lock-keywords-atom-regular
           erlang-font-lock-keywords-vars
-          erlang-font-lock-keywords-atom
           )
   ;; DocStringCopy: erlang-font-lock-keywords
   "Font-lock keywords used by Erlang Mode.

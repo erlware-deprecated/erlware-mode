@@ -51,33 +51,42 @@ func5(X)
     f:is_atom(),
     g:registered(),
     h:my_registered(),
+    func6(),
+    deregistered(),
 
-    % This should be highlighted as a bif.
+    % These should be highlighted as bifs.
+    erlang:registered(),
     registered(),
+    hd(tl(tl(hd([a,b,c])))).
 
-    % Should be highlighted as a function.
-    deregistered().
+% `-spec' should be highlighted as an attribute, i.e. the same way as
+% the `-define'
 
+-define(foo,FOO).
 -spec func6() -> any().
+
 func6() ->
-    % 3 lines below should be highlighted as atoms
+    % These should be highlighted as atoms
+    'VaV',
+    'aVa',
     '\'atom',
     'atom\'',
     'at\'om',
+    '#1',
     % 3 lines below should be highlighted as literals
     $a,
     $A,
     $1,
-    V = x,
     % in line below, V should be highlited as a var
     V(),
-    Mo = y,
+    Mo = yVy,
     Vv = v,
     % in line below, Mo and Vv should be highlited as vars
     Mo:Vv(),
     % in line below, Mo as var, bla as func call
     Mo:bla(),
-    ok.
+    % the ':' should no be highlighted
+    ets:insert(bla,{'$1',{'$2','$3'}}).
 
 func7() ->
     % should keep indentation on tab
@@ -88,10 +97,16 @@ func7() ->
 
 func8() ->
     % anatom should be highlighted as an atom, not a string
-    "string$", anatom,
+
+    "string\$", anatom,
+
+    % N.B. A '$' at the end of a string must be escaped, or the
+    % highlighting will not work. This is of course a bug, but I don't
+    % know how to fix it and the workaround is simple.
+
     % this comment should be highlighted as a comment
     % following should be highlighted as a string, should indent on tab
-"some $a string".
+    "some $a string".
 
 func9(Term, [${|T]) ->
     % above should be highlighted correctly
