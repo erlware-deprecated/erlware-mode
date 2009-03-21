@@ -1,3 +1,7 @@
+2009-03-20  mats cronqvist <mats.cronqvist@gmail.com>
+
+	* numerous syntax highlighting fixes
+
 2009-02-19  Derek Upham <sand@blarg.net>
 
 	* run after-change-major-mode-hook in Emacs 23 and greater
