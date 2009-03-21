@@ -54,6 +54,9 @@ func5(X)
     func6(),
     deregistered(),
 
+    % atom_to_list and element should be highlighted as bifs
+    AppName = atom_to_list(element(1, AppSpec)),
+
     % These should be highlighted as bifs.
     erlang:registered(),
     registered(),
