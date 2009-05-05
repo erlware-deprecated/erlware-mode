@@ -489,13 +489,15 @@ The function is called with one argument, the name of the file
 containing the man page.  Use this variable when the default
 function, `erlang-man-display', does not work on your system.")
 
-(defconst erlang-atom-quoted-regexp 
-  "'\\(?:[^\\']?\\(?:\\\\'\\)?\\)*'"
-  "Regexp describing a single-quoted atom")
+(eval-and-compile
+  (defconst erlang-atom-quoted-regexp 
+    "'\\(?:[^\\']?\\(?:\\\\'\\)?\\)*'"
+    "Regexp describing a single-quoted atom"))
 
-(defconst erlang-atom-regular-regexp 
-  "\\(?:[a-z][A-Za-z0-9_]*\\)"
-   "Regexp describing a regular (non-quoted) atom")
+(eval-and-compile
+  (defconst erlang-atom-regular-regexp 
+    "\\(?:[a-z][A-Za-z0-9_]*\\)"
+    "Regexp describing a regular (non-quoted) atom"))
 
 (eval-and-compile
   (defconst erlang-atom-regexp 
