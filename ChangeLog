@@ -1,3 +1,11 @@
+2009-05-04  Dave Peticolas <dave@krondo.com>
+
+	* Jim Morris's patch to make erlang.el byte-compile in 22.1 and 22.2.
+
+2009-05-04  Dave Peticolas <dave@krondo.com>
+
+	* Support tags in Emacs > 19. (ported from original mode by Jim Morris).
+
 2009-03-20  mats cronqvist <mats.cronqvist@gmail.com>
 
 	* numerous syntax highlighting fixes
