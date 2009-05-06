@@ -315,6 +315,17 @@ inhibited.")
     erlang-electric-gt)
   "*Commands which can inhibit the next newline.")
 
+(defvar erlang-oldstyle-comment-indent nil
+  "*if non-nil, use old-style indent rules.
+
+Old-style is to indent comments starting with `%' far right,
+those starting with `%%' with same indent as code, and thos
+starting with `%%%' far left.
+
+New-style is to indent comments starting with `%' with same
+indent as code, and those starting with at least two `%' far
+left.")
+
 (defvar erlang-electric-semicolon-insert-blank-lines nil
   "*Number of blank lines inserted before header, or nil.
 
@@ -2426,10 +2437,20 @@ This assumes that the preceding expression is either simple
 
 Used both by `indent-for-comment' and the Erlang specific indentation
 commands."
-  (cond ((looking-at "%%") 0)
-        ((looking-at "%")
-         (or (erlang-calculate-indent)
-             (current-indentation)))))
+  (if (not erlang-oldstyle-comment-indent)
+      (cond ((looking-at "%%") 0)
+            ((looking-at "%")
+             (or (erlang-calculate-indent)
+                 (current-indentation))))
+    (cond ((looking-at "%%%") 0)
+          ((looking-at "%%")
+           (or (erlang-calculate-indent)
+               (current-indentation)))
+          (t
+           (save-excursion
+             (skip-chars-backward " \t")
+             (max (if (bolp) 0 (1+ (current-column)))
+                  comment-column))))))
 
 
 ;;; Erlang movement commands
