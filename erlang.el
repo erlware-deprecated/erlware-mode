@@ -4341,8 +4341,9 @@ a prompt.  When nil, we will wait forever, or until \\[keyboard-quit].")
   "Buffer of last invoked inferior Erlang, or nil.")
 
 ;;;###autoload
-(defun inferior-erlang ()
+(defun inferior-erlang (&optional command)
   "Run an inferior Erlang.
+With prefix command, prompt for command to start Erlang with.
 
 This is just like running Erlang in a normal shell, except that
 an Emacs buffer is used for input and output.
@@ -4356,16 +4357,24 @@ Entry to this mode calls the functions in the variables
 The following commands imitate the usual Unix interrupt and
 editing control characters:
 \\{erlang-shell-mode-map}"
-  (interactive)
+  (interactive
+   (when current-prefix-arg
+     (list (read-string "Erlang command: "))))
   (require 'comint)
-  (let ((opts inferior-erlang-machine-options))
-    (cond ((eq inferior-erlang-shell-type 'oldshell)
-           (setq opts (cons "-oldshell" opts)))
-          ((eq inferior-erlang-shell-type 'newshell)
-           (setq opts (append '("-newshell" "-env" "TERM" "vt100") opts))))
-    (setq inferior-erlang-buffer
+  (let (cmd opts)
+    (if command
+        (setq cmd "sh"
+              opts (list "-c" command))
+      (setq cmd inferior-erlang-machine
+            opts inferior-erlang-machine-options)
+      (cond ((eq inferior-erlang-shell-type 'oldshell)
+             (setq opts (cons "-oldshell" opts)))
+            ((eq inferior-erlang-shell-type 'newshell)
+             (setq opts (append '("-newshell" "-env" "TERM" "vt100") opts)))))
+
+      (setq inferior-erlang-buffer
           (apply 'make-comint
-                 inferior-erlang-process-name inferior-erlang-machine
+                 inferior-erlang-process-name cmd
                  nil opts)))
   (setq inferior-erlang-process
         (get-buffer-process inferior-erlang-buffer))
