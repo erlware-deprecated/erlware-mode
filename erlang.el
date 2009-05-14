@@ -620,6 +620,9 @@ Never EVER set this variable!")
 ;; Sinan commands:
 (load "erlang-sinan")
 
+;; Flymake support
+;; M-x flymake-mode to start
+(load "erlang-flymake")
 
 ;; Font-lock variables
 

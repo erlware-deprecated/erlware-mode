@@ -6,6 +6,7 @@
 %% <<If comment-multi-line is on, Press Return to get another %% line>>
 
 -module(test).
+-compile(export_all).
 
 func1() ->
     % This line should stay here after a tab.
@@ -81,6 +82,7 @@ func6() ->
     $A,
     $1,
     % in line below, V should be highlited as a var
+    V = fun() -> hello end,
     V(),
     Mo = yVy,
     Vv = v,
@@ -95,7 +97,7 @@ func7() ->
     % should keep indentation on tab
     try func1()
     after
-        func2()
+        func7()
     end.
 
 func8() ->
@@ -114,7 +116,7 @@ func8() ->
 func9(Term, [${|T]) ->
     % above should be highlighted correctly
     % all function body lines should not indent further on tab
-    ok.
+    T.
 
 deregistered() ->
     ok.
