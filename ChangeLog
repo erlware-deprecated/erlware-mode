@@ -1,3 +1,7 @@
+2009-05-14  mats cronqvist <mats.cronqvist@gmail.com>
+
+	* flymake support
+
 2009-05-04  Dave Peticolas <dave@krondo.com>
 
 	* Jim Morris's patch to make erlang.el byte-compile in 22.1 and 22.2.
