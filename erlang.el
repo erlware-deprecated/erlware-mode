@@ -3,7 +3,7 @@
 ;; Copyright (C) 1995-1998,2000  Ericsson Telecom AB
 ;; Copyright (C) 2004  Free Software Foundation, Inc.
 ;; Author:   Anders Lindgren
-;; Version:  0.1.12
+;; Version:  0.1.13
 ;; Keywords: erlang, languages, processes
 ;; Date:     2000-09-11
 
@@ -83,7 +83,7 @@
 
 ;; Variables:
 
-(defconst erlang-version "0.1.12"
+(defconst erlang-version "0.1.13"
   "The version number of Erlware Erlang mode.")
 
 (defvar erlang-man-root-dir nil
@@ -314,6 +314,17 @@ inhibited.")
     erlang-electric-comma
     erlang-electric-gt)
   "*Commands which can inhibit the next newline.")
+
+(defvar erlang-oldstyle-comment-indent nil
+  "*if non-nil, use old-style indent rules.
+
+Old-style is to indent comments starting with `%' far right,
+those starting with `%%' with same indent as code, and thos
+starting with `%%%' far left.
+
+New-style is to indent comments starting with `%' with same
+indent as code, and those starting with at least two `%' far
+left.")
 
 (defvar erlang-electric-semicolon-insert-blank-lines nil
   "*Number of blank lines inserted before header, or nil.
@@ -647,6 +658,9 @@ Never EVER set this variable!")
 ;; Sinan commands:
 (load "erlang-sinan")
 
+;; Flymake support
+;; M-x flymake-mode to start
+(load "erlang-flymake")
 
 ;; Font-lock variables
 
@@ -2418,10 +2432,20 @@ This assumes that the preceding expression is either simple
 
 Used both by `indent-for-comment' and the Erlang specific indentation
 commands."
-  (cond ((looking-at "%%") 0)
-        ((looking-at "%")
-         (or (erlang-calculate-indent)
-             (current-indentation)))))
+  (if (not erlang-oldstyle-comment-indent)
+      (cond ((looking-at "%%") 0)
+            ((looking-at "%")
+             (or (erlang-calculate-indent)
+                 (current-indentation))))
+    (cond ((looking-at "%%%") 0)
+          ((looking-at "%%")
+           (or (erlang-calculate-indent)
+               (current-indentation)))
+          (t
+           (save-excursion
+             (skip-chars-backward " \t")
+             (max (if (bolp) 0 (1+ (current-column)))
+                  comment-column))))))
 
 
 ;;; Erlang movement commands
