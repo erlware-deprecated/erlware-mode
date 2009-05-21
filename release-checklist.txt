@@ -4,6 +4,8 @@ Update version number in erlang.el.
 
 Update ChangeLog.
 
+Update AUTHORS if needed.
+
 Tag the release number in git (vx.y.z).
 
 Merge into 'master'.
