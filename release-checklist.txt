@@ -1,12 +1,12 @@
 Get all changes into 'next'.
 
-Merge into 'master'.
-
 Update version number in erlang.el.
 
 Update ChangeLog.
 
 Tag the release number in git (vx.y.z).
+
+Merge into 'master'.
 
 Push the changes to github.
 
