@@ -17,6 +17,12 @@
 (if (locate-library "flymake")
     (progn
       (require 'flymake)
+      (defun flymake-siblicide()
+        "Kill all next-error capable buffers."
+        (condition-case nil
+            (progn (kill-buffer (next-error-find-buffer))
+                   (flymake-siblicide))
+          (error nil)))
       (defun erlang-flymake-init ()
         "Set up the command used to parse our buffer"
         (let* ((erlang-dir (file-name-directory (locate-library "erlang")))
@@ -29,6 +35,7 @@
       (defun erlang-flymake-next-error ()
         "Goto next error, if any. Display error in mini-buffer."
         (interactive)
+        (flymake-siblicide)
         (let ((err-buf nil))
           (condition-case err
               (setq err-buf (next-error-find-buffer))
