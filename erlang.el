@@ -1137,7 +1137,7 @@ Other commands:
   (set (make-local-variable 'imenu-prev-index-position-function)
        'erlang-beginning-of-function)
   (set (make-local-variable 'imenu-extract-index-name-function)
-       'erlang-get-function-name)
+       'erlang-get-function-name-and-arity)
   (set (make-local-variable 'tempo-match-finder)
        "[^-a-zA-Z0-9_]\\([-a-zA-Z0-9_]*\\)\\=")
   (set (make-local-variable 'beginning-of-defun-function)
@@ -2928,6 +2928,20 @@ Normally used in conjunction with `erlang-beginning-of-clause', e.g.:
                        (concat "^" erlang-atom-regexp "\\s *(")))
          (erlang-buffer-substring (match-beginning n) (match-end n)))))
 
+(defun erlang-get-function-name-and-arity ()
+  "Return name and arity of current function (e.g. \"foo/1\"), or nil."
+  (when (looking-at (eval-when-compile
+                      (concat "^" erlang-atom-regexp "\\s *(")))
+    (let ((name (erlang-buffer-substring (match-beginning 1) (match-end 1)))
+          (arity 0))
+      (save-excursion
+        (goto-char (match-end 0))
+        (while (ignore-errors
+                 (skip-syntax-forward "-")
+                 (forward-sexp 1)
+                 t)
+          (incf arity)))
+      (format "%s/%d" name arity))))
 
 (defun erlang-get-function-arrow ()
   "Return arrow of current function, could be \"->\", \":-\" or nil.
