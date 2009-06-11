@@ -2939,8 +2939,10 @@ Normally used in conjunction with `erlang-beginning-of-clause', e.g.:
         (while (ignore-errors
                  (skip-syntax-forward "-")
                  (forward-sexp 1)
+                 (skip-syntax-forward "-")
                  t)
-          (incf arity)))
+          (when (looking-at "[,)]")
+            (incf arity))))
       (format "%s/%d" name arity))))
 
 (defun erlang-get-function-arrow ()
