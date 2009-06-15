@@ -3,7 +3,7 @@
 ;; Copyright (C) 1995-1998,2000  Ericsson Telecom AB
 ;; Copyright (C) 2004  Free Software Foundation, Inc.
 ;; Author:   Anders Lindgren
-;; Version:  0.1.12
+;; Version:  0.1.14
 ;; Keywords: erlang, languages, processes
 ;; Date:     2000-09-11
 
@@ -83,7 +83,7 @@
 
 ;; Variables:
 
-(defconst erlang-version "0.1.12"
+(defconst erlang-version "0.1.14"
   "The version number of Erlware Erlang mode.")
 
 (defvar erlang-man-root-dir nil
@@ -576,7 +576,45 @@ The matches all except the extension.  This is useful if the Erlang
 tags system should interpret tags on the form `module:tag' for
 files written in other languages than Erlang.")
 
-(defvar erlang-mode-map nil
+(defvar erlang-mode-map 
+  (let ((map (make-sparse-keymap)))
+    (unless (boundp 'indent-line-function)
+      (define-key map "\t"        'erlang-indent-command))
+    (define-key map ";"         'erlang-electric-semicolon)
+    (define-key map ","         'erlang-electric-comma)
+    (define-key map "<"         'erlang-electric-lt)
+    (define-key map ">"         'erlang-electric-gt)
+    (define-key map "\C-m"      'erlang-electric-newline)
+    (if (not (boundp 'delete-key-deletes-forward))
+        (define-key map "\177" 'backward-delete-char-untabify)
+      (define-key map [backspace] 'backward-delete-char-untabify))
+    (define-key map "\M-q"      'erlang-fill-paragraph)
+    (unless (boundp 'beginning-of-defun-function)
+      (define-key map "\M-\C-a"   'erlang-beginning-of-function)
+      (define-key map "\M-\C-e"   'erlang-end-of-function)
+      (define-key map "\M-\C-h"   'erlang-mark-function))
+    (define-key map "\M-\t"     'erlang-complete-tag)
+    (define-key map "\C-c\M-\t" 'tempo-complete-tag)
+    (define-key map "\M-+"      'erlang-find-next-tag)
+    (define-key map "\C-c\M-a"  'erlang-beginning-of-clause)
+    (define-key map "\C-c\M-b"  'tempo-backward-mark)
+    (define-key map "\C-c\M-e"  'erlang-end-of-clause)
+    (define-key map "\C-c\M-f"  'tempo-forward-mark)
+    (define-key map "\C-c\M-h"  'erlang-mark-clause)
+    (define-key map "\C-c\C-c"  'comment-region)
+    (define-key map "\C-c\C-j"  'erlang-generate-new-clause)
+    (define-key map "\C-c\C-k"  'erlang-compile)
+    (define-key map "\C-c\C-l"  'erlang-compile-display)
+    (define-key map "\C-c\C-s"  'erlang-show-syntactic-information)
+    (define-key map "\C-c\C-q"  'erlang-indent-function)
+    (define-key map "\C-c\C-u"  'erlang-uncomment-region)
+    (define-key map "\C-c\C-y"  'erlang-clone-arguments)
+    (define-key map "\C-c\C-a"  'erlang-align-arrows)
+    (define-key map "\C-c\C-z"  'erlang-shell-display)
+    ;; This is only needed for Emacs < 21.
+    ;; (unless inferior-erlang-use-cmm
+    ;;   (define-key map "\C-x`"    'erlang-next-error))
+    map)
   "*Keymap used in Erlang mode.")
 (defvar erlang-mode-abbrev-table nil
   "Abbrev table in use in Erlang-mode buffers.")
@@ -1004,7 +1042,7 @@ Other commands:
   (setq major-mode 'erlang-mode)
   (setq mode-name "Erlang")
   (erlang-syntax-table-init)
-  (erlang-keymap-init)
+  (use-local-map erlang-mode-map)
   (erlang-electric-init)
   (erlang-menu-init)
   (erlang-mode-variables)
@@ -1047,52 +1085,6 @@ Other commands:
         (setq erlang-mode-syntax-table table)))
 
   (set-syntax-table erlang-mode-syntax-table))
-
-
-(defun erlang-keymap-init ()
-  (if erlang-mode-map
-      nil
-    (setq erlang-mode-map (make-sparse-keymap))
-    (erlang-mode-commands erlang-mode-map))
-  (use-local-map erlang-mode-map))
-
-
-(defun erlang-mode-commands (map)
-  (unless (boundp 'indent-line-function)
-    (define-key map "\t"        'erlang-indent-command))
-  (define-key map ";"         'erlang-electric-semicolon)
-  (define-key map ","         'erlang-electric-comma)
-  (define-key map "<"         'erlang-electric-lt)
-  (define-key map ">"         'erlang-electric-gt)
-  (define-key map "\C-m"      'erlang-electric-newline)
-  (if (not (boundp 'delete-key-deletes-forward))
-      (define-key map "\177" 'backward-delete-char-untabify)
-    (define-key map [backspace] 'backward-delete-char-untabify))
-  (define-key map "\M-q"      'erlang-fill-paragraph)
-  (unless (boundp 'beginning-of-defun-function)
-    (define-key map "\M-\C-a"   'erlang-beginning-of-function)
-    (define-key map "\M-\C-e"   'erlang-end-of-function)
-    (define-key map "\M-\C-h"   'erlang-mark-function))
-  (define-key map "\M-\t"     'erlang-complete-tag)
-  (define-key map "\C-c\M-\t" 'tempo-complete-tag)
-  (define-key map "\M-+"      'erlang-find-next-tag)
-  (define-key map "\C-c\M-a"  'erlang-beginning-of-clause)
-  (define-key map "\C-c\M-b"  'tempo-backward-mark)
-  (define-key map "\C-c\M-e"  'erlang-end-of-clause)
-  (define-key map "\C-c\M-f"  'tempo-forward-mark)
-  (define-key map "\C-c\M-h"  'erlang-mark-clause)
-  (define-key map "\C-c\C-c"  'comment-region)
-  (define-key map "\C-c\C-j"  'erlang-generate-new-clause)
-  (define-key map "\C-c\C-k"  'erlang-compile)
-  (define-key map "\C-c\C-l"  'erlang-compile-display)
-  (define-key map "\C-c\C-s"  'erlang-show-syntactic-information)
-  (define-key map "\C-c\C-q"  'erlang-indent-function)
-  (define-key map "\C-c\C-u"  'erlang-uncomment-region)
-  (define-key map "\C-c\C-y"  'erlang-clone-arguments)
-  (define-key map "\C-c\C-a"  'erlang-align-arrows)
-  (define-key map "\C-c\C-z"  'erlang-shell-display)
-  (unless inferior-erlang-use-cmm
-    (define-key map "\C-x`"    'erlang-next-error)))
 
 
 (defun erlang-electric-init ()
@@ -4365,8 +4357,9 @@ a prompt.  When nil, we will wait forever, or until \\[keyboard-quit].")
   "Buffer of last invoked inferior Erlang, or nil.")
 
 ;;;###autoload
-(defun inferior-erlang ()
+(defun inferior-erlang (&optional command)
   "Run an inferior Erlang.
+With prefix command, prompt for command to start Erlang with.
 
 This is just like running Erlang in a normal shell, except that
 an Emacs buffer is used for input and output.
@@ -4380,16 +4373,24 @@ Entry to this mode calls the functions in the variables
 The following commands imitate the usual Unix interrupt and
 editing control characters:
 \\{erlang-shell-mode-map}"
-  (interactive)
+  (interactive
+   (when current-prefix-arg
+     (list (read-string "Erlang command: "))))
   (require 'comint)
-  (let ((opts inferior-erlang-machine-options))
-    (cond ((eq inferior-erlang-shell-type 'oldshell)
-           (setq opts (cons "-oldshell" opts)))
-          ((eq inferior-erlang-shell-type 'newshell)
-           (setq opts (append '("-newshell" "-env" "TERM" "vt100") opts))))
-    (setq inferior-erlang-buffer
+  (let (cmd opts)
+    (if command
+        (setq cmd "sh"
+              opts (list "-c" command))
+      (setq cmd inferior-erlang-machine
+            opts inferior-erlang-machine-options)
+      (cond ((eq inferior-erlang-shell-type 'oldshell)
+             (setq opts (cons "-oldshell" opts)))
+            ((eq inferior-erlang-shell-type 'newshell)
+             (setq opts (append '("-newshell" "-env" "TERM" "vt100") opts)))))
+
+      (setq inferior-erlang-buffer
           (apply 'make-comint
-                 inferior-erlang-process-name inferior-erlang-machine
+                 inferior-erlang-process-name cmd
                  nil opts)))
   (setq inferior-erlang-process
         (get-buffer-process inferior-erlang-buffer))

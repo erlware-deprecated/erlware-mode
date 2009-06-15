@@ -1,3 +1,19 @@
+2009-05-18  Magnus Henoch <magnus@erlang-consulting.com>
+
+	* (erlang-mode-map): Define keymap when module is loaded.
+ 	
+	* (erlang-mode): Don't call erlang-keymap-init.
+
+	* (erlang-keymap-init, erlang-mode-commands): Remove.
+
+2009-05-08  Magnus Henoch <magnus@erlang-consulting.com>
+
+	* (inferior-erlang): Prompt for command when called with prefix argument.
+
+2009-05-14  mats cronqvist <mats.cronqvist@gmail.com>
+
+	* flymake support
+
 2009-05-04  Dave Peticolas <dave@krondo.com>
 
 	* Jim Morris's patch to make erlang.el byte-compile in 22.1 and 22.2.

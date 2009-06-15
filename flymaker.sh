@@ -11,6 +11,7 @@ bdname(){ basename `dname $1`; }
 # assuming that include and ebin are parallel to src
 Is=""
 PAs=""
+
 if [ `bdname $2` == "src" ]; then
     if [ `bdname $2/../..` == "lib" ]; then
         top=`dname $2/../..`
