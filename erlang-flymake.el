@@ -29,7 +29,8 @@
         (let* ((erlang-dir (file-name-directory (locate-library "erlang")))
                (temp-file (flymake-init-create-temp-buffer-copy
                            'flymake-tmp-filename)))
-          (list (concat erlang-dir "flymaker.sh") (list temp-file))))
+          (list (concat erlang-dir "flymaker.sh") 
+                (list temp-file default-directory))))
       (defun flymake-siblicide()
         "Kill all next-error capable buffers."
         (condition-case nil
