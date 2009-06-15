@@ -17,21 +17,25 @@
 (if (locate-library "flymake")
     (progn
       (require 'flymake)
+      (defun flymake-tmp-filename(filename prefix)
+        (let*
+            ((tmp-dir (concat (getenv "HOME") "/.erlang-flymake"))
+             (tmp-name (file-name-nondirectory filename))
+             (tmp-file (concat tmp-dir "/" tmp-name)))
+          (flymake-log 3 "made temp-file: %s" tmp-file)
+          tmp-file))
+      (defun erlang-flymake-init ()
+        "Set up the command used to parse our buffer"
+        (let* ((erlang-dir (file-name-directory (locate-library "erlang")))
+               (temp-file (flymake-init-create-temp-buffer-copy
+                           'flymake-tmp-filename)))
+          (list (concat erlang-dir "flymaker.sh") (list temp-file))))
       (defun flymake-siblicide()
         "Kill all next-error capable buffers."
         (condition-case nil
             (progn (kill-buffer (next-error-find-buffer))
                    (flymake-siblicide))
           (error nil)))
-      (defun erlang-flymake-init ()
-        "Set up the command used to parse our buffer"
-        (let* ((erlang-dir (file-name-directory (locate-library "erlang")))
-               (temp-file (flymake-init-create-temp-buffer-copy
-                           'flymake-create-temp-inplace))
-               (local-file (file-relative-name 
-                            temp-file
-                            (file-name-directory buffer-file-name))))
-          (list (concat erlang-dir "flymaker.sh") (list local-file))))
       (defun erlang-flymake-next-error ()
         "Goto next error, if any. Display error in mini-buffer."
         (interactive)

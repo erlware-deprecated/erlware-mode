@@ -551,7 +551,7 @@ This is used to determine matches in complex regexps which contains
    "p\\(id_to_list\\|rocess\\(_\\(flag\\|info\\)\\|es\\)\\|ut\\)\\|"
    "r\\(egister\\(\\|ed\\)\\|ound\\)\\|"
    "s\\(e\\(lf\\|telement\\)\\|ize"
-   "\\|p\\(awn\\(\\|_link\\)\\|lit_binary\\)\\|tatistics\\)\\|"
+   "\\|p\\(awn\\(\\|_link\\|_monitor\\)\\|lit_binary\\)\\|tatistics\\)\\|"
    "t\\(erm_to_binary\\|hrow\\|ime\\|l\\|r\\(ace\\|unc\\)\\|uple_to_list\\)\\|"
    "un\\(link\\|"
    "register\\)\\|"

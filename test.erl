@@ -42,8 +42,8 @@ func4() ->
             error
     end.
 
-func5(X)
-  when is_atom(X) ->
+func5(Xyz)
+  when is_atom(Xyz) ->
     % `is_atom' should be highlighted as a guard above
 
     % All functions below should be highlighted as functions, not
@@ -55,8 +55,10 @@ func5(X)
     func6(),
     deregistered(),
 
+    % Xyz should be highlighted as a variabla
+    AppSpec = Xyz/2,
     % atom_to_list and element should be highlighted as bifs
-    AppName = atom_to_list(element(1, AppSpec)),
+    atom_to_list(element(1, AppSpec)),
 
     % These should be highlighted as bifs.
     erlang:registered(),
