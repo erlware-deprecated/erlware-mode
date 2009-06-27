@@ -11,4 +11,4 @@ for e in `dirname $1`/../../*/ebin; do
     PAs="-pa $e $PAs"
 done
 
-erlc -o /tmp $Is $PAs -Wall $1
+erlc -o /tmp $Is $PAs -Wall +no_error_module_mismatch $1
