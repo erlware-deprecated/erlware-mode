@@ -2271,18 +2271,7 @@ Return nil if inside string, t if in a comment."
            ;;
            ;; `after' should be indented to the save level as the
            ;; corresponding receive.
-           (if (looking-at "after[^_a-zA-Z0-9]")
-               (nth 2 stack-top)
-             (save-excursion
-               (goto-char (nth 1 stack-top))
-               (if (looking-at "case[^_a-zA-Z0-9]")
-                   (+ (nth 2 stack-top) erlang-indent-level)
-                 (skip-chars-forward "a-z")
-                 (skip-chars-forward " \t")
-                 (if (memq (following-char) '(?% ?\n))
-                     (+ (nth 2 stack-top) erlang-indent-level)
-                   (current-column)))))
-           (if (looking-at "catch[^_a-zA-Z0-9]")
+           (if (looking-at "\\(after\\|catch\\)[^_a-zA-Z0-9]")
                (nth 2 stack-top)
              (save-excursion
                (goto-char (nth 1 stack-top))
