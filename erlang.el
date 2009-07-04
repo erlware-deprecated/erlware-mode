@@ -1137,7 +1137,7 @@ Other commands:
   (set (make-local-variable 'imenu-prev-index-position-function)
        'erlang-beginning-of-function)
   (set (make-local-variable 'imenu-extract-index-name-function)
-       'erlang-get-function-name)
+       'erlang-get-function-name-and-arity)
   (set (make-local-variable 'tempo-match-finder)
        "[^-a-zA-Z0-9_]\\([-a-zA-Z0-9_]*\\)\\=")
   (set (make-local-variable 'beginning-of-defun-function)
@@ -1145,7 +1145,8 @@ Other commands:
   (set (make-local-variable 'end-of-defun-function) 'erlang-end-of-function)
   (set (make-local-variable 'open-paren-in-column-0-is-defun-start) nil)
   (set (make-local-variable 'fill-paragraph-function) 'erlang-fill-paragraph)
-  (set (make-local-variable 'comment-add) 1)
+  (set (make-local-variable 'comment-add)
+       (if erlang-oldstyle-comment-indent 1 0))
   (set (make-local-variable 'outline-regexp) "[[:lower:]0-9_]+ *(.*) *-> *$")
   (set (make-local-variable 'outline-level) (lambda () 1))
   (set (make-local-variable 'add-log-current-defun-function)
@@ -2270,18 +2271,7 @@ Return nil if inside string, t if in a comment."
            ;;
            ;; `after' should be indented to the save level as the
            ;; corresponding receive.
-           (if (looking-at "after[^_a-zA-Z0-9]")
-               (nth 2 stack-top)
-             (save-excursion
-               (goto-char (nth 1 stack-top))
-               (if (looking-at "case[^_a-zA-Z0-9]")
-                   (+ (nth 2 stack-top) erlang-indent-level)
-                 (skip-chars-forward "a-z")
-                 (skip-chars-forward " \t")
-                 (if (memq (following-char) '(?% ?\n))
-                     (+ (nth 2 stack-top) erlang-indent-level)
-                   (current-column)))))
-           (if (looking-at "catch[^_a-zA-Z0-9]")
+           (if (looking-at "\\(after\\|catch\\)[^_a-zA-Z0-9]")
                (nth 2 stack-top)
              (save-excursion
                (goto-char (nth 1 stack-top))
@@ -2927,6 +2917,22 @@ Normally used in conjunction with `erlang-beginning-of-clause', e.g.:
                        (concat "^" erlang-atom-regexp "\\s *(")))
          (erlang-buffer-substring (match-beginning n) (match-end n)))))
 
+(defun erlang-get-function-name-and-arity ()
+  "Return name and arity of current function (e.g. \"foo/1\"), or nil."
+  (when (looking-at (eval-when-compile
+                      (concat "^" erlang-atom-regexp "\\s *(")))
+    (let ((name (erlang-buffer-substring (match-beginning 1) (match-end 1)))
+          (arity 0))
+      (save-excursion
+        (goto-char (match-end 0))
+        (while (ignore-errors
+                 (skip-syntax-forward "-")
+                 (forward-sexp 1)
+                 (skip-syntax-forward "-")
+                 t)
+          (when (looking-at "[,)]")
+            (incf arity))))
+      (format "%s/%d" name arity))))
 
 (defun erlang-get-function-arrow ()
   "Return arrow of current function, could be \"->\", \":-\" or nil.
