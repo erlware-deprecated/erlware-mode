@@ -2206,14 +2206,11 @@ Value is list (stack token-start token-type in-what)."
              ;; and then incr should be removed and is not an error.
              (if (eq (car (car stack)) '\()
                  (erlang-pop stack)
-             (else
-               (error "Missing `end'"))
-             ))
+               (error "Missing `end'")))
             ((eq (car (car stack)) 'begin)
              (error "Missing `end'"))
             (t
-             (error "Unbalanced parenthesis"))
-             ))
+             (error "Unbalanced parenthesis")))
       (forward-char 1))
 
      ;; Character quote: Skip it and the quoted char.
