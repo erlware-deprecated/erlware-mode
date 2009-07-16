@@ -4,30 +4,36 @@
 dname (){ (cd $1 ; pwd); }
 bdname(){ basename `dname $1`; }
 
-# if our module lives in a src dir, we attempt to handle the cases 
-# .../lib/<app>/src/<our module>
-# and
-# .../<app>/src/<our module>
-# assuming that include and ebin are parallel to src
+# if our module lives here;
+# .../a/b/<our module>
+# we add these to include/load paths, respectively;
+# .../*/include
+# .../*/ebin
+# note: the load path is used to resolve the -include_lib()"
 Is=""
 PAs=""
 
-if [ `bdname $2` == "src" ]; then
-    if [ `bdname $2/../..` == "lib" ]; then
-        top=`dname $2/../..`
-    else
-        top=`dname $2/..`
-    fi
+# $HOME/bla.erl
+if [ `dname $2` == "$HOME" ]; then echo -n ""
+
+# $HOME/bla/foo.erl or /bla/foo.erl
+elif [ `bdname $2/..` == "$HOME" -o `bdname $2/..` == "/" ]; then  echo -n ""
+
+# $HOME/bla/src/foo.erl or /bla/src/foo.erl
+elif [ `bdname $2/../..` == "HOME" -o `bdname $2/../..` == "/" ]; then
+    top=`dname $2/..`
+    Is="-I $top/include"
+    PAs="-pa $top/ebin"
+
+# $HOME/lib/app/src/foo.erl or /erlang/app/src/foo.erl
+else
+    top=`dname $2/../..`
     for i in $top/*/include; do
         Is="-I$i $Is"
     done
     for e in $top/*/ebin; do
         PAs="-pa$e $PAs"
     done
-else
-    top=`dname $2`
-    PAs="-pa $top"
-    Is="-I $top"
 fi
 
 OUT=`dirname $1`
