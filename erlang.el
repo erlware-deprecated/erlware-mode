@@ -551,7 +551,7 @@ This is used to determine matches in complex regexps which contains
    "p\\(id_to_list\\|rocess\\(_\\(flag\\|info\\)\\|es\\)\\|ut\\)\\|"
    "r\\(egister\\(\\|ed\\)\\|ound\\)\\|"
    "s\\(e\\(lf\\|telement\\)\\|ize"
-   "\\|p\\(awn\\(\\|_link\\)\\|lit_binary\\)\\|tatistics\\)\\|"
+   "\\|p\\(awn\\(\\|_link\\|_monitor\\)\\|lit_binary\\)\\|tatistics\\)\\|"
    "t\\(erm_to_binary\\|hrow\\|ime\\|l\\|r\\(ace\\|unc\\)\\|uple_to_list\\)\\|"
    "un\\(link\\|"
    "register\\)\\|"
@@ -931,30 +931,30 @@ Lock syntax table.  The effect is that `apply' in the atom
 
 ;; `eval-when-compile' is not defined in Emacs 18.  We define it as a
 ;; no-op.
-(or (fboundp 'eval-when-compile)
-    (defmacro eval-when-compile (&rest rest) nil))
+;; (or (fboundp 'eval-when-compile)
+;;     (defmacro eval-when-compile (&rest rest) nil))
 
-;; These umm...functions are new in Emacs 20. And, yes, until version
-;; 19.27 Emacs backquotes were this ugly.
+;; ;; These umm...functions are new in Emacs 20. And, yes, until version
+;; ;; 19.27 Emacs backquotes were this ugly.
 
-(or (fboundp 'unless)
-    (defmacro unless (condition &rest body)
-      "(unless CONDITION BODY...): If CONDITION is false, do BODY, else return nil."
-      (` (if (, condition)
-             nil
-           (,@ body)))))
+;; (or (fboundp 'unless)
+;;     (defmacro unless (condition &rest body)
+;;       "(unless CONDITION BODY...): If CONDITION is false, do BODY, else return nil."
+;;       (` (if (, condition)
+;;              nil
+;;            (,@ body)))))
 
-(or (fboundp 'when)
-    (defmacro when (condition &rest body)
-      "(when CONDITION BODY...): If CONDITION is true, do BODY, else return nil."
-      (` (if (, condition)
-             (progn (,@ body))
-           nil))))
+;; (or (fboundp 'when)
+;;     (defmacro when (condition &rest body)
+;;       "(when CONDITION BODY...): If CONDITION is true, do BODY, else return nil."
+;;       (` (if (, condition)
+;;              (progn (,@ body))
+;;            nil))))
 
-(or (fboundp 'char-before)
-    (defmacro char-before (&optional pos)
-      "Return the character in the current buffer just before POS."
-      (` (char-after (1- (or (, pos) (point)))))))
+;; (or (fboundp 'char-before)
+;;     (defmacro char-before (&optional pos)
+;;       "Return the character in the current buffer just before POS."
+;;       (` (char-after (1- (or (, pos) (point)))))))
 
 (eval-when-compile
   (if (or (featurep 'bytecomp)
@@ -2207,14 +2207,11 @@ Value is list (stack token-start token-type in-what)."
              ;; and then incr should be removed and is not an error.
              (if (eq (car (car stack)) '\()
                  (erlang-pop stack)
-             (else
-               (error "Missing `end'"))
-             ))
+               (error "Missing `end'")))
             ((eq (car (car stack)) 'begin)
-             (error "Missing `end'")
-             (t
-              (error "Unbalanced parenthesis"))
-             ))
+             (error "Missing `end'"))
+            (t
+             (error "Unbalanced parenthesis")))
       (forward-char 1))
 
      ;; Character quote: Skip it and the quoted char.

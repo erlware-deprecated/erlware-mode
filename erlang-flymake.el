@@ -17,29 +17,27 @@
 (if (locate-library "flymake")
     (progn
       (require 'flymake)
+      (defun erlang-flymake-tmp-filename(filename prefix)
+        "Make a temp file name (in $HOME/.erlang-flymake)"
+        (let* ((tmp-dir (concat (getenv "HOME") "/.erlang-flymake"))
+               (tmp-name (file-name-nondirectory filename))
+               (tmp-file (concat tmp-dir "/" tmp-name)))
+          (flymake-log 3 "temp-file is: %s" tmp-file)
+          tmp-file))
       (defun erlang-flymake-init ()
         "Set up the command used to parse our buffer"
         (let* ((erlang-dir (file-name-directory (locate-library "erlang")))
                (temp-file (flymake-init-create-temp-buffer-copy
-                           'flymake-create-temp-inplace))
-               (local-file (file-relative-name 
-                            temp-file
-                            (file-name-directory buffer-file-name))))
-          (list (concat erlang-dir "flymaker.sh") (list local-file))))
+                           'erlang-flymake-tmp-filename)))
+          (list (concat erlang-dir "flymaker.sh") 
+                (list temp-file default-directory))))
       (defun erlang-flymake-next-error ()
         "Goto next error, if any. Display error in mini-buffer."
         (interactive)
-        (let ((err-buf nil))
-          (condition-case err
-              (setq err-buf (next-error-find-buffer))
-            (error))
-          (if err-buf
-              (next-error)
-            (progn
-              (flymake-goto-next-error)
-              (let ((err (get-char-property (point) 'help-echo)))
-                (when err
-                  (message err)))))))
+        (flymake-goto-next-error)
+        (let ((err (get-char-property (point) 'help-echo)))
+          (when err
+            (message err))))
       ;; add our init file to flymake's alist of filename regexps
       (add-to-list 
        'flymake-allowed-file-name-masks
