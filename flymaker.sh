@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 dname (){ (cd $1 ; pwd); }
 bdname(){ basename `dname $1`; }
 
@@ -38,5 +37,6 @@ fi
 
 OUT=`dirname $1`
 
-erlc -o$OUT $Is $PAs -Wall -P $1 | grep -v "list comprehension has no gene"
+erlc -o $OUT $Is $PAs -Wall $1 | grep -v "list comprehension has no gene"
+
 exit 0
