@@ -1,3 +1,23 @@
+2009-07-16  mats cronqvist <mats.cronqvist@gmail.com>
+
+	* better include file detection (again)
+
+2009-07-15  mats cronqvist <mats.cronqvist@gmail.com>
+
+	* removed flawed next-error code.
+
+2009-06-15  mats cronqvist <mats.cronqvist@gmail.com>
+
+	* this should have been part of the previous commit.
+
+2009-06-15  mats cronqvist <mats.cronqvist@gmail.com>
+
+	* make flymake use $HOME/.erlang-flymake as temp dir. Ought to work on windows, and (more importantly) if the erl file is write protected.
+
+2009-06-02  mats cronqvist <mats.cronqvist@gmail.com>
+
+	* fixed the backtick problems by removing emacs 19 compatibility flymake enhancements
+
 2009-07-02  Magnus Henoch <magnus@erlang-consulting.com>
 
 	* erlang.el (erlang-calculate-stack-indent): Combine ignored 'if' statement for 'after' with the one for 'catch', to fix indentation of try-after.
