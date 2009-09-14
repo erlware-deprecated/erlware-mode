@@ -1059,6 +1059,29 @@ Other commands:
   (if (boundp 'after-change-major-mode-hook)
       (run-hooks 'after-change-major-mode-hook)))
 
+(defvar erlang-dollar-is-escape t
+  "If non-nil, a dollar sign escapes everything.
+There is (to the best of this author's knowledge) no solution
+that fits all code.  When this is set to t, a string ending with
+$ (e.g. \"foo$\") will be incorrectly highlighted (though
+\"foo\\$\" works); when nil, the character double-quote
+\(i.e. $\") will be incorrectly highlighted (though $\\\" works).
+Pick your poison.
+
+Changing this variable after you've opened an Erlang file doesn't
+do anything; use the function `erlang-toggle-dollar-is-escape'.")
+
+(defun erlang-toggle-dollar-is-escape ()
+  "Toggle syntax class of the dollar sign in Erlang mode.
+See `erlang-dollar-is-escape' for details."
+  (interactive)
+  (setq erlang-dollar-is-escape (not erlang-dollar-is-escape))
+  (setq erlang-mode-syntax-table nil)
+  ;; change in all erlang mode buffers
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when (eq major-mode 'erlang-mode)
+        (erlang-mode)))))
 
 (defun erlang-syntax-table-init ()
   (if (null erlang-mode-syntax-table)
@@ -1066,7 +1089,9 @@ Other commands:
         (modify-syntax-entry ?\n ">" table)
         (modify-syntax-entry ?\" "\"" table)
         (modify-syntax-entry ?# "." table)
-        (modify-syntax-entry ?$ "\\" table)
+        (if erlang-dollar-is-escape
+            (modify-syntax-entry ?$ "\\" table)
+          (modify-syntax-entry ?$ "'" table))
         (modify-syntax-entry ?% "<" table)
         (modify-syntax-entry ?& "." table)
         (modify-syntax-entry ?\' "w" table)
