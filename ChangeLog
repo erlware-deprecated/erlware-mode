@@ -1,3 +1,13 @@
+2009-09-14  Magnus Henoch <magnus@erlang-consulting.com>
+
+	* erlang.el (erlang-dollar-is-escape): New variable.
+        (erlang-toggle-dollar-is-escape): New function.
+        (erlang-syntax-table-init): Check erlang-dollar-is-escape.
+
+2009-07-28  Magnus Henoch <magnus.henoch@gmail.com>
+
+	* erlang-start.el: Associate files using interpreter "escript" with Erlang mode.
+
 2009-07-16  mats cronqvist <mats.cronqvist@gmail.com>
 
 	* better include file detection (again)
