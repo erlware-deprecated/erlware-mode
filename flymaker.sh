@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 dname (){ (cd $1 ; pwd); }
 bdname(){ basename `dname $1`; }
