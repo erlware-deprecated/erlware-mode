@@ -3,7 +3,7 @@
 ;; Copyright (C) 1995-1998,2000  Ericsson Telecom AB
 ;; Copyright (C) 2004  Free Software Foundation, Inc.
 ;; Author:   Anders Lindgren
-;; Version:  0.1.17
+;; Version:  0.1.18
 ;; Keywords: erlang, languages, processes
 ;; Date:     2000-09-11
 
@@ -83,7 +83,7 @@
 
 ;; Variables:
 
-(defconst erlang-version "0.1.17"
+(defconst erlang-version "0.1.18"
   "The version number of Erlware Erlang mode.")
 
 (defvar erlang-man-root-dir nil

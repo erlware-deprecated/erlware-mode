@@ -1,3 +1,7 @@
+2009-11-09  Tino Breddin <tino@.(none)>
+
+	* changed shebang to use env instead of hardcoded path
+
 2009-09-14  Magnus Henoch <magnus@erlang-consulting.com>
 
 	* erlang.el (erlang-dollar-is-escape): New variable.
