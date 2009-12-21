@@ -686,6 +686,8 @@ Please see the function `tempo-define-template'.")
     "-export([init/1, state_name/2, state_name/3, handle_event/3," n>
     "handle_sync_event/4, handle_info/3, terminate/3, code_change/4])." n n
 
+    "-define(SERVER, ?MODULE)." n n
+    
     "-record(state, {})." n n
 
     (erlang-skel-double-separator-start 3)
@@ -788,7 +790,7 @@ Please see the function `tempo-define-template'.")
     "%%                   {stop, Reason, NewState} |" n
     "%%                   {stop, Reason, Reply, NewState}" n
     (erlang-skel-separator-end 2)
-    "handle_sync_event(Event, From, StateName, State) ->" n>
+    "handle_sync_event(_Event, _From, StateName, State) ->" n>
     "Reply = ok," n>
     "{reply, Reply, StateName, State}." n
     n
