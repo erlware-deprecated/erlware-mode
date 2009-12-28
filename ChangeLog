@@ -1,3 +1,20 @@
+2009-12-28  Dave Peticolas <dave@krondo.com>
+
+	* Add -define(SERVER, ?MODULE). to gen_event to fix
+	compilation. Add newline.
+
+2009-12-21  bile <bile@landofbile.com>
+
+	* Add -define(SERVER, ?MODULE). to fix compilation
+
+	* Added underscores to handle_sync_event's Event and From to
+	suppress warning.
+
+2009-12-21  bile <bile@landofbile.com>
+
+	* Create new option, erlang-compile-outdir, which is concat'ed to
+	the beam outdir when calling erlang-compile
+
 2009-11-09  Tino Breddin <tino@.(none)>
 
 	* changed shebang to use env instead of hardcoded path
