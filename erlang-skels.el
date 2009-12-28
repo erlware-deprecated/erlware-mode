@@ -554,7 +554,7 @@ Please see the function `tempo-define-template'.")
 
 (defvar erlang-skel-gen-event
   '((erlang-skel-include erlang-skel-large-header)
-    "-behaviour(gen_event)." n
+    "-behaviour(gen_event)." n n
 
     "%% API" n
     "-export([start_link/0, add_handler/0])." n n
@@ -562,6 +562,8 @@ Please see the function `tempo-define-template'.")
     "%% gen_event callbacks" n
     "-export([init/1, handle_event/2, handle_call/2, " n>
     "handle_info/2, terminate/2, code_change/3])." n n
+
+    "-define(SERVER, ?MODULE). " n n
 
     "-record(state, {})." n n
 
