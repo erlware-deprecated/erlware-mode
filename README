@@ -1,3 +1,16 @@
+Deprecation Notice
+==================
+
+The Erlware Emacs Mode is deprecated. All significant changes
+made to the Erlware version have been incorporated into the
+latest release of the official distribution.
+
+Future development of the Emacs mode for Erlang should proceed
+with the official version at:
+
+  http://github.com/erlang/otp
+
+
 User configuration notes
 ========================
 
