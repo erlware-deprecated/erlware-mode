@@ -568,7 +568,7 @@ Please see the function `tempo-define-template'.")
     "-record(state, {})." n n
 
     (erlang-skel-double-separator-start 3)
-    "%%% gen_event callbacks" n
+    "%%% API" n
     (erlang-skel-double-separator-end 3) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
@@ -689,7 +689,7 @@ Please see the function `tempo-define-template'.")
     "handle_sync_event/4, handle_info/3, terminate/3, code_change/4])." n n
 
     "-define(SERVER, ?MODULE)." n n
-    
+
     "-record(state, {})." n n
 
     (erlang-skel-double-separator-start 3)
