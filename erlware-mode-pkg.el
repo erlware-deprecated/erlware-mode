@@ -1,0 +1,1 @@
+(define-package "erlware-mode" "1.0" "Erlware Erlang Mode" (quote nil))
