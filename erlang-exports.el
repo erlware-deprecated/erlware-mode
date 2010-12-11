@@ -28,38 +28,43 @@
 
 (defvar *erlang-exports-files* (list)
   "association list of source files to their AST files")
-(defvar *erlang-compile-command* "erlc")
+(defvar *erlang-ast-command* (concat (file-name-directory (locate-library "erlang")) "compile-export"))
 (defvar *erlang-ast-function-expression* "^\{function,\s*\\([a-zAb-Z0-9_]*\\),\s\\([0-9]*\\),\s[0-9]*")
+(defvar *erlang-ast-exports-declaration-expression*
+         "^\{exports,\s+\\[\s*") ;; Find the exports declaration
+(defvar *erlang-ast-export-expression* "\s*\{\\([a-z_0-9]*\\),\\([0-9]+\\)\},?\\\n?")
+(defvar *erlang-full-exports-expression* (concat *erlang-ast-exports-declaration-expression* "\\(" *erlang-ast-export-expression* "\\)*\\]\\}\\.\\\n"))
+
+(defun match-exports ()
+  (interactive)
+  (beginning-of-buffer)
+  (let ((end-point (re-search-forward *erlang-full-exports-expression* nil 1))
+        (exports nil))
+    (if end-point
+        (progn
+          (setf (point) (- (point) (length (match-string-no-properties 0))))
+          (while (re-search-forward *erlang-ast-export-expression* end-point 1)
+            (let ((fn-name (match-string-no-properties 1))
+                  (fn-arity (match-string-no-properties 2)))
+              (push (cons fn-name fn-arity) exports)))
+          (reverse exports))
+      nil)))
 
 (defun erlang-exports-build-exports (new-buffer-name)
   "gathers exports from the Erlang AST"
-  (let ((exports-list (list))
-        (lines (count-lines (point-min) (point-max))))
-    (goto-line 0)
-    (beginning-of-line)
-    (dotimes (line-num lines)
-      (let* ((line-limit (line-end-position))
-             (expression-match (re-search-forward *erlang-ast-function-expression* line-limit t)))
-        (when expression-match
-          (let ((matched-string 
-                 (concat (buffer-substring-no-properties (match-beginning 1) (match-end 1))
-                         "/"
-                         (buffer-substring-no-properties (match-beginning 2) (match-end 2)))))
-            (push matched-string exports-list))))
-      (forward-line 1)
-      (beginning-of-line))
-    (goto-line 0)
+  (let* ((exports (match-exports))
+         (oel-length (length exports)))
+    (insert (format "%s" (length exports)))
+    (forward-line 1)
     (beginning-of-line)
     (set-buffer (get-buffer-create new-buffer-name))
-    (let* ((ordered-export-list (reverse exports-list))
-           (oel-length (length ordered-export-list)))
-      (when (> oel-length 0)
-        (insert "-export([\n")
-        (dolist (export ordered-export-list)
+    (when (> oel-length 0)
+      (progn
+        (insert "-export([")
+        (dolist (export (mapcar #'(lambda (x) (concat (format "%s/%s" (car x) (cdr x)) (if (> (decf oel-length) 2) "," ""))) exports))
           (unless (string-match "module_info" export)
-            (insert (concat "\t" export (if (> (decf oel-length) 2) ",\n" "")))))
-        (insert "\n]).\n")))))
-
+            (insert export)))
+        (insert "]).\n")))))
 
 ;; get the buffer-file-name for the erlang file
 ;; get the directory
@@ -73,20 +78,16 @@
   (interactive)
   (multiple-value-bind (source-file-directory source-bare-file)
       (source-directory-and-file (buffer-file-name))
-    (let* ((ast-file-name (concat source-bare-file ".S"))
-           (new-buffer-name (concat "*erlang-exports-" ast-file-name "*")))
+    (let* ((ast-file-name (concat source-bare-file ".S")))
       (save-current-buffer
+        (push (cons buffer-file-name ast-file-name) *erlang-exports-files*)
         (setq erlang-exports-process 
               (apply 'start-process
                      "erlang-exports-process" 
                      (get-buffer-create "*erlang-exports*") 
-                     *erlang-compile-command* 
-                     (build-command-line (buffer-file-name) ast-file-name) ))
-        (push (cons buffer-file-name ast-file-name) *erlang-exports-files*)
+                     *erlang-ast-command* 
+                     (list (file-name-sans-extension (buffer-file-name)))))
         (set-process-sentinel erlang-exports-process 'erlang-exports-process-sentinel)))))
-
-(defun build-command-line (source-file-name out-file-name)
-  `("-S" ,source-file-name "-o " ,out-file-name))
 
 (defun erlang-exports-process-sentinel (process event)
   (let* ((current-file-name (buffer-file-name))
@@ -105,3 +106,5 @@
   (let* ((source-file-directory (file-name-directory source-file-name)))
     (string-match source-file-directory (file-name-sans-extension source-file-name))
     (values source-file-directory (substring (file-name-sans-extension source-file-name) (match-end 0)))))
+
+(provide 'erlang-exports)
