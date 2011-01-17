@@ -60,7 +60,7 @@
     (beginning-of-line)
     (set-buffer (get-buffer-create new-buffer-name))
     (when (> oel-length 0)
-      (progn 
+      (progn
         (insert "-export([")
         (dolist (export (mapcar #'(lambda (x) (concat (format "%s/%s" (car x) (cdr x)) (if (> (decf oel-length) 2) "," ""))) exports))
           (unless (string-match "module_info" export)
