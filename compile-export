@@ -1,0 +1,16 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+%%! -smp enable -sname factorial -mnesia debug verbose
+main([SourceFile]) ->
+    try
+        compile:file(SourceFile, ['S',export_all])
+    catch
+        _:_ ->
+            usage()
+    end;
+main(_) ->
+    usage().
+        
+usage() ->
+    io:format("usage: compile-export <source file name>\n"),
+    halt(1).
